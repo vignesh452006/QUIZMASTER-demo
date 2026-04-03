@@ -3,184 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz Master V2 PRO MAX</title>
+  <title>Quiz Master V3 ULTRA</title>
   <style>
     :root{
-      --bg:#060816; --bg2:#0b1023; --card:rgba(255,255,255,.08); --line:rgba(255,255,255,.12);
-      --text:#eef5ff; --muted:#9fb2d9; --pri:#8b5cf6; --sec:#06b6d4; --pink:#ec4899; --green:#10b981; --red:#ef4444; --gold:#f59e0b;
+      --bg:#05070f; --bg2:#0d1328; --glass:rgba(255,255,255,.08); --line:rgba(255,255,255,.12);
+      --txt:#f5f7ff; --muted:#a8b6d8; --c1:#00e5ff; --c2:#7c4dff; --c3:#ff4da6; --ok:#00c853; --warn:#ffb300; --danger:#ff5252;
       --shadow:0 25px 80px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{scroll-behavior:smooth;font-family:Inter,Segoe UI,Arial,sans-serif;background:
-      radial-gradient(circle at 15% 20%,rgba(139,92,246,.25),transparent 22%),
-      radial-gradient(circle at 85% 15%,rgba(6,182,212,.18),transparent 20%),
-      radial-gradient(circle at 50% 90%,rgba(236,72,153,.18),transparent 22%),
+    html,body{font-family:Inter,Segoe UI,Arial,sans-serif;scroll-behavior:smooth;background:
+      radial-gradient(circle at 10% 20%,rgba(0,229,255,.18),transparent 18%),
+      radial-gradient(circle at 85% 15%,rgba(124,77,255,.18),transparent 20%),
+      radial-gradient(circle at 50% 90%,rgba(255,77,166,.14),transparent 18%),
       linear-gradient(135deg,var(--bg),var(--bg2));
-      color:var(--text);overflow-x:hidden}
-    body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(80px);z-index:-1;opacity:.25;animation:float 10s ease-in-out infinite}
-    body::before{width:320px;height:320px;background:#8b5cf6;top:10%;left:-90px}
-    body::after{width:380px;height:380px;background:#06b6d4;right:-120px;bottom:5%;animation-direction:reverse}
-    @keyframes float{50%{transform:translateY(-20px) translateX(25px) scale(1.06)}}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(35px) rotateX(15deg)}to{opacity:1;transform:none}}
-    @keyframes pulseGlow{50%{box-shadow:0 0 0 8px rgba(139,92,246,.06),0 0 40px rgba(6,182,212,.18)}}
-    @keyframes spinSlow{to{transform:rotate(360deg)}}
-    .container{width:min(1280px,92%);margin:auto}
-    .hidden{display:none!important}
-    .glass{background:var(--card);backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:var(--shadow)}
-    .card{padding:24px;border-radius:28px;animation:fadeUp .8s ease both;transform-style:preserve-3d;transition:.35s}
-    .card:hover{transform:translateY(-8px) rotateX(5deg) rotateY(-5deg)}
-    .btn{border:none;border-radius:16px;padding:13px 18px;color:#fff;font-weight:800;cursor:pointer;background:linear-gradient(45deg,var(--pri),var(--sec));box-shadow:0 14px 30px rgba(139,92,246,.35);transition:.28s}
-    .btn:hover{transform:translateY(-3px) scale(1.03)} .btn.alt{background:linear-gradient(45deg,var(--pink),var(--pri))} .btn.ok{background:linear-gradient(45deg,var(--green),#22c55e)} .btn.danger{background:linear-gradient(45deg,#b91c1c,var(--red))} .btn.ghost{background:rgba(255,255,255,.04);border:1px solid var(--line);box-shadow:none}
-    .badge,.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);font-size:12px}
-    .pill{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35)}
-    nav{position:sticky;top:0;z-index:90;background:rgba(6,8,22,.6);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-    .nav-wrap{display:flex;justify-content:space-between;align-items:center;padding:14px 0;gap:18px}.brand{font-size:30px;font-weight:900;letter-spacing:.5px}.brand span{background:linear-gradient(45deg,#c4b5fd,#67e8f9,#f9a8d4);-webkit-background-clip:text;color:transparent}
-    .nav-links{display:flex;gap:12px;flex-wrap:wrap}
-    .hero{padding:70px 0 30px;display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center}
-    .hero h1{font-size:clamp(2.4rem,5vw,4.3rem);line-height:1.02;margin:14px 0}.hero p{font-size:1.03rem;color:var(--muted);line-height:1.8}
-    .orbital{position:relative;height:520px;perspective:1200px}.planet,.ring,.sat{position:absolute;border-radius:50%}.planet{width:220px;height:220px;background:radial-gradient(circle at 30% 30%,#67e8f9,#8b5cf6 60%,#1e1b4b);top:130px;left:50%;transform:translateX(-50%);box-shadow:0 0 90px rgba(139,92,246,.4);animation:float 8s ease-in-out infinite}
-    .ring{width:340px;height:340px;border:2px solid rgba(255,255,255,.14);top:70px;left:50%;transform:translateX(-50%) rotateX(75deg);animation:spinSlow 18s linear infinite}.ring.r2{width:420px;height:420px;top:30px;opacity:.6;animation-duration:24s}.sat{width:18px;height:18px;background:#fff;top:100px;left:50%;transform-origin:0 120px;animation:spinSlow 8s linear infinite}
-    .stats,.grid,.grid2,.grid3{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr);margin-top:18px}.grid2{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}
-    .stat{text-align:center;padding:20px;border-radius:22px}.stat b{display:block;font-size:30px;margin-bottom:4px}
-    section{padding:26px 0}.section-title{font-size:2rem;margin-bottom:14px}.muted{color:var(--muted);line-height:1.8}
-    input,select,textarea{width:100%;padding:14px 15px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);outline:none;transition:.25s} input:focus,select:focus,textarea:focus{border-color:#67e8f9;box-shadow:0 0 0 4px rgba(103,232,249,.08)} textarea{min-height:110px;resize:vertical}
-    .row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .auth-shell{display:grid;grid-template-columns:1fr 1fr;gap:20px}.tabs{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}.tab{padding:11px 16px;border-radius:999px;border:1px solid var(--line);cursor:pointer}.tab.active{background:linear-gradient(45deg,var(--pri),var(--sec));font-weight:800}
-    .dashboard{padding:22px 0 60px}.dash-top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.sidebar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.side-btn{padding:11px 15px;border-radius:16px;border:1px solid var(--line);cursor:pointer;background:rgba(255,255,255,.05);transition:.25s}.side-btn:hover{transform:translateY(-2px)}.side-btn.active{background:linear-gradient(45deg,var(--pri),var(--sec));font-weight:800}
-    .quiz-card .meta{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 16px}.timer{font-size:30px;font-weight:900;animation:pulseGlow 1.6s infinite;border-radius:18px;padding:10px 14px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
-    .question{padding:22px;border-radius:24px;margin:14px 0}.option{display:block;padding:14px 15px;border:1px solid var(--line);border-radius:16px;margin:10px 0;cursor:pointer;background:rgba(255,255,255,.04);transition:.22s}.option:hover{transform:translateX(6px);border-color:#a78bfa}.option input{width:auto;margin-right:8px}
-    table{width:100%;border-collapse:collapse} th,td{padding:13px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left} th{color:#fff} td{color:#d7e6ff}
-    .footer{text-align:center;color:var(--muted);padding:28px 0 60px}.toast{position:fixed;right:18px;bottom:18px;padding:14px 18px;border-radius:18px;background:#0b1220;border:1px solid var(--line);box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.35s;z-index:100}.toast.show{transform:none;opacity:1}
-    @media(max-width:980px){.hero,.auth-shell,.grid2,.grid3,.row,.row3,.stats{grid-template-columns:1fr}.orbital{height:340px}.planet{width:160px;height:160px;top:90px}.ring{width:260px;height:260px;top:45px}.ring.r2{width:320px;height:320px;top:15px}}
+      color:var(--txt);overflow-x:hidden}
+    body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur(80px);z-index:-2;opacity:.25;animation:float 10s ease-in-out infinite}
+    body::before{width:340px;height:340px;background:var(--c1);left:-120px;top:10%} body::after{width:420px;height:420px;background:var(--c2);right:-140px;bottom:5%;animation-direction:reverse}
+    @keyframes float{50%{transform:translateY(-20px) translateX(18px) scale(1.05)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px) rotateX(14deg)}to{opacity:1;transform:none}}
+    @keyframes spin360{to{transform:rotateX(360deg) rotateY(360deg)}}
+    @keyframes pulseLamp{50%{box-shadow:0 0 30px rgba(255,244,179,.55),0 0 100px rgba(255,244,179,.18)}}
+    @keyframes ringSpin{to{transform:translateX(-50%) rotate(360deg)}}
+    .container{width:min(1280px,92%);margin:auto}.hidden{display:none!important}
+    .glass{background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:var(--shadow)}
+    .card{padding:24px;border-radius:30px;animation:fadeUp .85s ease both;transform-style:preserve-3d;transition:.35s}.card:hover{transform:translateY(-8px) rotateX(4deg) rotateY(-4deg)}
+    .btn{border:none;border-radius:16px;padding:13px 18px;color:white;font-weight:800;cursor:pointer;background:linear-gradient(45deg,var(--c2),var(--c1));box-shadow:0 14px 30px rgba(124,77,255,.28);transition:.25s}.btn:hover{transform:translateY(-3px) scale(1.03)} .btn.alt{background:linear-gradient(45deg,var(--c3),var(--c2))}.btn.ok{background:linear-gradient(45deg,var(--ok),#69f0ae)}.btn.danger{background:linear-gradient(45deg,#d50000,var(--danger))}.btn.ghost{background:rgba(255,255,255,.04);border:1px solid var(--line);box-shadow:none}
+    .badge,.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);font-size:12px}.pill{background:rgba(0,200,83,.12);border-color:rgba(0,200,83,.35)}
+    nav{position:sticky;top:0;z-index:80;background:rgba(5,7,15,.6);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)} .nav-wrap{display:flex;justify-content:space-between;align-items:center;padding:14px 0;gap:16px}.brand{font-size:30px;font-weight:900}.brand span{background:linear-gradient(45deg,#9be7ff,#b39ddb,#ff80ab);-webkit-background-clip:text;color:transparent}.nav-links{display:flex;gap:10px;flex-wrap:wrap}
+    .page{min-height:100vh;padding:32px 0}.page-title{font-size:2rem;margin-bottom:10px}.muted{color:var(--muted);line-height:1.8}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center;padding-top:48px}.hero h1{font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.02;margin:14px 0}.hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.8}
+    .stats,.grid2,.grid3,.row,.row3{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr);margin-top:20px}.grid2{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.row{grid-template-columns:repeat(2,1fr)}.row3{grid-template-columns:repeat(3,1fr)}
+    .stat{text-align:center;padding:20px;border-radius:24px}.stat b{display:block;font-size:30px}
+    .cube-wrap{height:520px;display:grid;place-items:center;perspective:1000px;position:relative}.cube{position:relative;width:180px;height:180px;transform-style:preserve-3d;animation:spin360 14s linear infinite}.face{position:absolute;width:180px;height:180px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(135deg,rgba(0,229,255,.18),rgba(124,77,255,.18),rgba(255,77,166,.18));backdrop-filter:blur(14px);display:grid;place-items:center;font-size:28px;font-weight:900;box-shadow:0 0 50px rgba(0,229,255,.12)}
+    .front{transform:translateZ(90px)} .back{transform:rotateY(180deg) translateZ(90px)} .right{transform:rotateY(90deg) translateZ(90px)} .left{transform:rotateY(-90deg) translateZ(90px)} .top{transform:rotateX(90deg) translateZ(90px)} .bottom{transform:rotateX(-90deg) translateZ(90px)}
+    .ring{position:absolute;width:360px;height:360px;border:1px solid rgba(255,255,255,.14);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);animation:ringSpin 18s linear infinite}.ring.r2{width:450px;height:450px;opacity:.55;animation-duration:26s}
+    input,select,textarea{width:100%;padding:14px 15px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--txt);outline:none} input:focus,select:focus,textarea:focus{border-color:#9be7ff;box-shadow:0 0 0 4px rgba(155,231,255,.08)}
+    .auth-shell{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.tab{padding:11px 16px;border-radius:999px;border:1px solid var(--line);cursor:pointer}.tab.active{background:linear-gradient(45deg,var(--c2),var(--c1));font-weight:800}
+    .lamp-zone{height:100%;min-height:560px;position:relative;overflow:hidden}.lamp-wire{position:absolute;top:-10px;left:50%;width:3px;height:120px;background:linear-gradient(#bbb,#666)}.lamp{position:absolute;top:100px;left:50%;transform:translateX(-50%);width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#fff8c6 0%,#fff2a8 22%,#ffd54f 42%,rgba(255,213,79,.2) 70%,transparent 72%);filter:blur(.2px);animation:pulseLamp 2.5s ease-in-out infinite}.lamp-cone{position:absolute;top:150px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:170px solid transparent;border-right:170px solid transparent;border-top:430px solid rgba(255,244,179,.10);filter:blur(1px)}
+    .float-ball{position:absolute;border-radius:50%;background:linear-gradient(45deg,rgba(0,229,255,.25),rgba(124,77,255,.25));border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);animation:float 8s ease-in-out infinite}.b1{width:90px;height:90px;left:10%;top:25%}.b2{width:60px;height:60px;right:12%;top:20%;animation-duration:9s}.b3{width:110px;height:110px;right:16%;bottom:12%;animation-duration:11s}.b4{width:70px;height:70px;left:20%;bottom:18%;animation-duration:7s}
+    .dashboard{padding-bottom:60px}.dash-top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.sidebar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.side-btn{padding:11px 15px;border-radius:16px;border:1px solid var(--line);cursor:pointer;background:rgba(255,255,255,.05)}.side-btn.active{background:linear-gradient(45deg,var(--c2),var(--c1));font-weight:800}
+    .timer{font-size:30px;font-weight:900;padding:10px 14px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid var(--line);animation:pulseLamp 1.8s infinite}.question{padding:22px;border-radius:24px;margin:14px 0}.option{display:block;padding:14px 15px;border:1px solid var(--line);border-radius:16px;margin:10px 0;cursor:pointer;background:rgba(255,255,255,.04)}.option:hover{transform:translateX(6px);border-color:#b39ddb}.option input{width:auto;margin-right:8px}
+    table{width:100%;border-collapse:collapse} th,td{padding:13px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left} td{color:#dbe8ff}
+    .toast{position:fixed;right:18px;bottom:18px;padding:14px 18px;border-radius:18px;background:#0b1220;border:1px solid var(--line);box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.35s;z-index:100}.toast.show{transform:none;opacity:1}
+    .footer{text-align:center;color:var(--muted);padding:28px 0 60px}
+    @media(max-width:980px){.hero,.auth-shell,.grid2,.grid3,.row,.row3,.stats{grid-template-columns:1fr}.cube-wrap{height:360px}.lamp-zone{min-height:420px}}
   </style>
 </head>
 <body>
 <nav>
   <div class="container nav-wrap">
-    <div class="brand">Quiz<span>Master V2</span></div>
+    <div class="brand">Quiz<span>Master V3</span></div>
     <div class="nav-links">
-      <button class="btn ghost" onclick="scrollToId('home')">Home</button>
-      <button class="btn ghost" onclick="scrollToId('features')">Features</button>
-      <button class="btn ghost" onclick="scrollToId('auth')">Login / Register</button>
+      <button class="btn ghost" onclick="showPage('homePage')">Home</button>
+      <button class="btn ghost" onclick="showPage('authPage')">Login / Register</button>
+      <button class="btn ghost" onclick="showPage('dashboardPage')">Dashboard</button>
     </div>
   </div>
 </nav>
 
-<section id="home" class="container hero">
-  <div class="card glass">
-    <span class="badge">🚀 V2 FINAL PRO MAX • Stylish 3D Animated</span>
-    <h1>Future-Ready Quiz Platform with <span style="background:linear-gradient(45deg,#67e8f9,#c4b5fd,#f9a8d4);-webkit-background-clip:text;color:transparent">Student, Staff & Admin</span> Dashboards</h1>
-    <p>Now redesigned with a premium futuristic structure, smoother animations, richer role-based features, leaderboard, quiz review, subject icons, analytics cards, neon glass panels, and more.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
-      <button class="btn" onclick="scrollToId('auth')">Launch Now</button>
-      <button class="btn alt" onclick="demoLogin('student')">Student Demo</button>
-      <button class="btn alt" onclick="demoLogin('staff')">Staff Demo</button>
-      <button class="btn alt" onclick="demoLogin('admin')">Admin Demo</button>
+<section id="homePage" class="page">
+  <div class="container hero">
+    <div class="card glass">
+      <span class="badge">🔥 V3 ULTRA • Separate Pages • New Theme</span>
+      <h1>Elegant 3D <span style="background:linear-gradient(45deg,#9be7ff,#d1c4e9,#ff80ab);-webkit-background-clip:text;color:transparent">Quiz Master</span> Experience</h1>
+      <p class="hero-sub">A complete futuristic quiz platform with separated page structure, advanced animated login/register page, stylish glass background, 360° rotating 3D cube, premium dashboards, role-based features, leaderboard, review mode, and much more.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+        <button class="btn" onclick="showPage('authPage')">Open Login Page</button>
+        <button class="btn alt" onclick="demoLogin('student');showPage('authPage')">Student Demo</button>
+        <button class="btn alt" onclick="demoLogin('staff');showPage('authPage')">Staff Demo</button>
+        <button class="btn alt" onclick="demoLogin('admin');showPage('authPage')">Admin Demo</button>
+      </div>
+      <div class="stats">
+        <div class="stat glass"><b>5</b>Subjects</div>
+        <div class="stat glass"><b>3</b>User Roles</div>
+        <div class="stat glass"><b>50+</b>Questions</div>
+        <div class="stat glass"><b>V3</b>Premium UI</div>
+      </div>
     </div>
-    <div class="stats">
-      <div class="stat glass"><b>5</b>Subjects</div>
-      <div class="stat glass"><b>10+</b>Quizzes</div>
-      <div class="stat glass"><b>50+</b>MCQs</div>
-      <div class="stat glass"><b>3</b>Role Panels</div>
+    <div class="cube-wrap">
+      <div class="ring"></div><div class="ring r2"></div>
+      <div class="cube">
+        <div class="face front">QUIZ</div>
+        <div class="face back">MASTER</div>
+        <div class="face right">V3</div>
+        <div class="face left">ULTRA</div>
+        <div class="face top">360°</div>
+        <div class="face bottom">3D</div>
+      </div>
     </div>
   </div>
-  <div class="orbital">
-    <div class="ring"></div><div class="ring r2"></div><div class="planet"></div><div class="sat"></div>
-  </div>
-</section>
-
-<section id="features" class="container">
-  <div class="card glass">
-    <h2 class="section-title">Premium Features</h2>
+  <div class="container" style="padding-top:10px">
     <div class="grid3">
-      <div class="card glass"><h3>🎯 Timer + Auto Submit</h3><p class="muted">Attempt quizzes with countdown and instant score generation.</p></div>
-      <div class="card glass"><h3>🏆 Leaderboard</h3><p class="muted">Compare top performers subject-wise and overall.</p></div>
-      <div class="card glass"><h3>📊 Analytics Cards</h3><p class="muted">Quick performance overview for all roles.</p></div>
-      <div class="card glass"><h3>🧠 Quiz Review</h3><p class="muted">Students can review correct and wrong answers after submission.</p></div>
-      <div class="card glass"><h3>🛠 Staff Builder</h3><p class="muted">Create, manage, publish, edit, and schedule quizzes easily.</p></div>
-      <div class="card glass"><h3>👑 Admin Control</h3><p class="muted">Manage users, quizzes, results, and system stats.</p></div>
+      <div class="card glass"><h3>🎯 Student Panel</h3><p class="muted">Attempt timed quizzes, see results, review answers, and track leaderboard position.</p></div>
+      <div class="card glass"><h3>🛠 Staff Panel</h3><p class="muted">Create quizzes, manage subjects, publish live/upcoming tests, and view student performance.</p></div>
+      <div class="card glass"><h3>👑 Admin Panel</h3><p class="muted">Control students, staff, quizzes, and system-wide activity from a premium dashboard.</p></div>
     </div>
   </div>
 </section>
 
-<section id="auth" class="container">
-  <div class="auth-shell">
+<section id="authPage" class="page hidden">
+  <div class="container auth-shell">
     <div class="card glass">
       <div class="tabs"><div class="tab active" onclick="showAuth('login',this)">Login</div><div class="tab" onclick="showAuth('register',this)">Register</div></div>
       <form id="loginForm">
-        <h2 class="section-title">Welcome Back</h2>
+        <h2 class="page-title">Enter QuizVerse</h2>
+        <p class="muted" style="margin-bottom:14px">New page design with lamp glow and floating glass shapes.</p>
         <div class="row"><input id="loginEmail" placeholder="Email" required><input id="loginPassword" type="password" placeholder="Password" required></div>
         <select id="loginRole"><option value="student">Student</option><option value="staff">Staff</option><option value="admin">Admin</option></select>
         <button class="btn" type="submit" style="margin-top:14px">Login</button>
       </form>
       <form id="registerForm" class="hidden">
-        <h2 class="section-title">Create Account</h2>
+        <h2 class="page-title">Create Account</h2>
+        <p class="muted" style="margin-bottom:14px">Register as Student, Staff, or Admin.</p>
         <div class="row"><input id="regName" placeholder="Full Name" required><input id="regEmail" placeholder="Email" required></div>
         <div class="row"><input id="regPassword" type="password" placeholder="Password" required><select id="regRole"><option value="student">Student</option><option value="staff">Staff</option><option value="admin">Admin</option></select></div>
         <button class="btn alt" type="submit" style="margin-top:14px">Register</button>
       </form>
+      <div style="margin-top:20px" class="muted">Demo: student@quiz.com / 1234 • staff@quiz.com / 1234 • admin@quiz.com / 1234</div>
     </div>
-    <div class="card glass">
-      <h2 class="section-title">Demo Credentials</h2>
-      <p class="muted">Student → student@quiz.com / 1234<br>Staff → staff@quiz.com / 1234<br>Admin → admin@quiz.com / 1234</p>
-      <br>
-      <h3>Extra Added in V2</h3>
-      <p class="muted">Leaderboard, quiz review, subject cards, upcoming toggle, analytics summary, performance badges, 3D hover effects, neon glow timer, improved dashboard structure, and more stylish UI.</p>
+    <div class="card glass lamp-zone">
+      <div class="lamp-wire"></div><div class="lamp"></div><div class="lamp-cone"></div>
+      <div class="float-ball b1"></div><div class="float-ball b2"></div><div class="float-ball b3"></div><div class="float-ball b4"></div>
+      <div style="position:absolute;bottom:30px;left:30px;right:30px;z-index:2">
+        <h2 class="page-title">High-Level Login Design</h2>
+        <p class="muted">Animated lamp glow, floating glass spheres, neon gradients, premium auth structure, and a dedicated page flow.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="dashboardSection" class="container dashboard hidden">
-  <div class="dash-top">
-    <div><h2 id="dashTitle" class="section-title"></h2><p id="dashSubtitle" class="muted"></p></div>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="pill" id="currentRole"></span><button class="btn danger" onclick="logout()">Logout</button></div>
+<section id="dashboardPage" class="page hidden">
+  <div class="container dashboard">
+    <div class="dash-top">
+      <div><h2 id="dashTitle" class="page-title">Dashboard</h2><p id="dashSubtitle" class="muted"></p></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="pill" id="currentRole"></span><button class="btn danger" onclick="logout()">Logout</button></div>
+    </div>
+    <div id="analytics"></div>
+    <div class="sidebar" id="sidebar"></div>
+    <div id="dashboardContent"></div>
   </div>
-  <div id="analytics"></div>
-  <div class="sidebar" id="sidebar"></div>
-  <div id="dashboardContent"></div>
 </section>
 
-<div class="footer">© 2026 QuizMaster V2 PRO MAX • Single File HTML</div>
+<div class="footer">© 2026 QuizMaster V3 ULTRA • Single File Premium Edition</div>
 <div id="toast" class="toast"></div>
 
 <script>
 const SUBJECTS=['Data Structures','DBMS','Operating Systems','Computer Networks','Python Programming'];
 const SUBJECT_ICONS={'Data Structures':'📚','DBMS':'🗄️','Operating Systems':'💻','Computer Networks':'🌐','Python Programming':'🐍'};
 const sampleQuestions={
-  'Data Structures':[ ['Stack follows?',['FIFO','LIFO','Random','Tree'],'LIFO'],['Queue follows?',['LIFO','FIFO','DFS','Graph'],'FIFO'],['Binary Search needs?',['Sorted array','Queue','Stack','Graph'],'Sorted array'],['Linked list insertion at beginning is?',['O(1)','O(n)','O(log n)','O(n log n)'],'O(1)'],['Circular queue avoids?',['Sorting','Overflow wastage','Recursion','Hashing'],'Overflow wastage'],['Tree with max 2 children?',['Graph','Binary Tree','Heap sort','Queue'],'Binary Tree'],['DFS uses?',['Queue','Stack','Heap','Array only'],'Stack'],['BFS uses?',['Stack','Queue','Recursion','Linked list'],'Queue'],['Top operation belongs to?',['Queue','Stack','Tree','Graph'],'Stack'],['Array access time?',['O(1)','O(n)','O(log n)','O(n^2)'],'O(1)'] ],
-  'DBMS':[ ['SQL stands for?',['Structured Query Language','Simple Query Language','System Query Link','None'],'Structured Query Language'],['Primary key is?',['Duplicate','Unique','Null only','Optional'],'Unique'],['Normalization reduces?',['Redundancy','Security','Speed always','Memory only'],'Redundancy'],['DDL example?',['SELECT','UPDATE','CREATE','DELETE'],'CREATE'],['Join combines?',['Rows from tables','Apps','Networks','Users'],'Rows from tables'],['Transaction property ACID includes?',['Atomicity','Accuracy','Activity','Allocation'],'Atomicity'],['Foreign key links?',['Table relation','CPU','RAM','OS'],'Table relation'],['SELECT is?',['DML','DDL','TCL','DCL'],'DML'],['COMMIT does?',['Rollback','Save changes','Delete DB','Lock table'],'Save changes'],['ER model used for?',['Design','Coding','Testing','Networking'],'Design'] ],
-  'Operating Systems':[ ['OS manages?',['Hardware & Software','Only files','Only CPU','Only users'],'Hardware & Software'],['CPU scheduling example?',['FCFS','HTML','SQL','TCP'],'FCFS'],['Deadlock needs?',['4 conditions','1 condition','No condition','Compiler'],'4 conditions'],['Paging avoids?',['External fragmentation','Coding','Networking','Sorting'],'External fragmentation'],['Semaphore is for?',['Synchronization','Animation','Compression','Graphics'],'Synchronization'],['Process in memory is?',['Program in execution','File','Folder','Compiler'],'Program in execution'],['Round Robin uses?',['Time quantum','Stack','Binary tree','Compiler'],'Time quantum'],['Thrashing means?',['Excessive paging','Typing','Crashing only','Printing'],'Excessive paging'],['Kernel is?',['Core of OS','App','Browser','Cache'],'Core of OS'],['Fork creates?',['New process','Thread only','File','Page'],'New process'] ],
-  'Computer Networks':[ ['OSI has layers?',['5','6','7','8'],'7'],['IP address used for?',['Identification','Animation','Storage','Sorting'],'Identification'],['HTTP port?',['21','25','80','143'],'80'],['TCP is?',['Connection-oriented','Connectionless','Graphics','Compiler'],'Connection-oriented'],['DNS converts?',['Name to IP','IP to RAM','CPU to ROM','Text to image'],'Name to IP'],['Switch works mainly at?',['Data Link','Physical only','Application','Session'],'Data Link'],['Router connects?',['Networks','Files','Tables','Users'],'Networks'],['Ping uses?',['ICMP','HTTP','FTP','SMTP'],'ICMP'],['LAN means?',['Local Area Network','Large App Node','Linear Access Net','None'],'Local Area Network'],['SMTP used for?',['Email','Streaming','Gaming','Routing'],'Email'] ],
-  'Python Programming':[ ['Python is?',['Interpreted','Only compiled','Assembly','Hardware'],'Interpreted'],['List is?',['Mutable','Immutable','Fixed only','None'],'Mutable'],['Tuple is?',['Mutable','Immutable','Numeric only','None'],'Immutable'],['def used for?',['Function','Loop','Class only','Import'],'Function'],['len() gives?',['Length','Type','Input','Loop'],'Length'],['Which for comments?',['//','#','<!-- -->','/* */'],'#'],['Dictionary stores?',['Key-value','Only values','Only keys','Indexes only'],'Key-value'],['range() used in?',['Loops','Files','DBMS','OS'],'Loops'],['Python file extension?',['.java','.py','.cpp','.db'],'.py'],['Class creates?',['Objects blueprint','Loop','Variable','Module'],'Objects blueprint'] ]
+'Data Structures':[['Stack follows?',['FIFO','LIFO','Random','Tree'],'LIFO'],['Queue follows?',['LIFO','FIFO','DFS','Graph'],'FIFO'],['Binary Search needs?',['Sorted array','Queue','Stack','Graph'],'Sorted array'],['Linked list insertion at beginning is?',['O(1)','O(n)','O(log n)','O(n log n)'],'O(1)'],['Circular queue avoids?',['Sorting','Overflow wastage','Recursion','Hashing'],'Overflow wastage'],['Tree with max 2 children?',['Graph','Binary Tree','Heap sort','Queue'],'Binary Tree'],['DFS uses?',['Queue','Stack','Heap','Array only'],'Stack'],['BFS uses?',['Stack','Queue','Recursion','Linked list'],'Queue'],['Top operation belongs to?',['Queue','Stack','Tree','Graph'],'Stack'],['Array access time?',['O(1)','O(n)','O(log n)','O(n^2)'],'O(1)']],
+'DBMS':[['SQL stands for?',['Structured Query Language','Simple Query Language','System Query Link','None'],'Structured Query Language'],['Primary key is?',['Duplicate','Unique','Null only','Optional'],'Unique'],['Normalization reduces?',['Redundancy','Security','Speed always','Memory only'],'Redundancy'],['DDL example?',['SELECT','UPDATE','CREATE','DELETE'],'CREATE'],['Join combines?',['Rows from tables','Apps','Networks','Users'],'Rows from tables'],['Transaction property ACID includes?',['Atomicity','Accuracy','Activity','Allocation'],'Atomicity'],['Foreign key links?',['Table relation','CPU','RAM','OS'],'Table relation'],['SELECT is?',['DML','DDL','TCL','DCL'],'DML'],['COMMIT does?',['Rollback','Save changes','Delete DB','Lock table'],'Save changes'],['ER model used for?',['Design','Coding','Testing','Networking'],'Design']],
+'Operating Systems':[['OS manages?',['Hardware & Software','Only files','Only CPU','Only users'],'Hardware & Software'],['CPU scheduling example?',['FCFS','HTML','SQL','TCP'],'FCFS'],['Deadlock needs?',['4 conditions','1 condition','No condition','Compiler'],'4 conditions'],['Paging avoids?',['External fragmentation','Coding','Networking','Sorting'],'External fragmentation'],['Semaphore is for?',['Synchronization','Animation','Compression','Graphics'],'Synchronization'],['Process in memory is?',['Program in execution','File','Folder','Compiler'],'Program in execution'],['Round Robin uses?',['Time quantum','Stack','Binary tree','Compiler'],'Time quantum'],['Thrashing means?',['Excessive paging','Typing','Crashing only','Printing'],'Excessive paging'],['Kernel is?',['Core of OS','App','Browser','Cache'],'Core of OS'],['Fork creates?',['New process','Thread only','File','Page'],'New process']],
+'Computer Networks':[['OSI has layers?',['5','6','7','8'],'7'],['IP address used for?',['Identification','Animation','Storage','Sorting'],'Identification'],['HTTP port?',['21','25','80','143'],'80'],['TCP is?',['Connection-oriented','Connectionless','Graphics','Compiler'],'Connection-oriented'],['DNS converts?',['Name to IP','IP to RAM','CPU to ROM','Text to image'],'Name to IP'],['Switch works mainly at?',['Data Link','Physical only','Application','Session'],'Data Link'],['Router connects?',['Networks','Files','Tables','Users'],'Networks'],['Ping uses?',['ICMP','HTTP','FTP','SMTP'],'ICMP'],['LAN means?',['Local Area Network','Large App Node','Linear Access Net','None'],'Local Area Network'],['SMTP used for?',['Email','Streaming','Gaming','Routing'],'Email']],
+'Python Programming':[['Python is?',['Interpreted','Only compiled','Assembly','Hardware'],'Interpreted'],['List is?',['Mutable','Immutable','Fixed only','None'],'Mutable'],['Tuple is?',['Mutable','Immutable','Numeric only','None'],'Immutable'],['def used for?',['Function','Loop','Class only','Import'],'Function'],['len() gives?',['Length','Type','Input','Loop'],'Length'],['Which for comments?',['//','#','<!-- -->','/* */'],'#'],['Dictionary stores?',['Key-value','Only values','Only keys','Indexes only'],'Key-value'],['range() used in?',['Loops','Files','DBMS','OS'],'Loops'],['Python file extension?',['.java','.py','.cpp','.db'],'.py'],['Class creates?',['Objects blueprint','Loop','Variable','Module'],'Objects blueprint']]
 };
 let state={users:[],quizzes:[],results:[],currentUser:null,currentQuiz:null,timer:null,timeLeft:0,lastReview:[]};
-function seed(){
- if(!localStorage.qm_users) localStorage.qm_users=JSON.stringify([{name:'Student Demo',email:'student@quiz.com',password:'1234',role:'student'},{name:'Staff Demo',email:'staff@quiz.com',password:'1234',role:'staff'},{name:'Admin Demo',email:'admin@quiz.com',password:'1234',role:'admin'}]);
- if(!localStorage.qm_quizzes){let quizzes=[],id=1; SUBJECTS.forEach(sub=>{for(let i=1;i<=2;i++) quizzes.push({id:id++,title:`${sub} Quiz ${i}`,subject:sub,createdBy:'staff@quiz.com',duration:300,questions:sampleQuestions[sub].slice((i-1)*5,(i-1)*5+5).map(q=>({q:q[0],options:q[1],answer:q[2]})),upcoming:i===2});}); localStorage.qm_quizzes=JSON.stringify(quizzes)}
- if(!localStorage.qm_results) localStorage.qm_results='[]'; load();
-}
+function seed(){if(!localStorage.qm_users) localStorage.qm_users=JSON.stringify([{name:'Student Demo',email:'student@quiz.com',password:'1234',role:'student'},{name:'Staff Demo',email:'staff@quiz.com',password:'1234',role:'staff'},{name:'Admin Demo',email:'admin@quiz.com',password:'1234',role:'admin'}]); if(!localStorage.qm_quizzes){let quizzes=[],id=1; SUBJECTS.forEach(sub=>{for(let i=1;i<=2;i++) quizzes.push({id:id++,title:`${sub} Quiz ${i}`,subject:sub,createdBy:'staff@quiz.com',duration:300,questions:sampleQuestions[sub].slice((i-1)*5,(i-1)*5+5).map(q=>({q:q[0],options:q[1],answer:q[2]})),upcoming:i===2});}); localStorage.qm_quizzes=JSON.stringify(quizzes)} if(!localStorage.qm_results) localStorage.qm_results='[]'; load();}
 function load(){state.users=JSON.parse(localStorage.qm_users);state.quizzes=JSON.parse(localStorage.qm_quizzes);state.results=JSON.parse(localStorage.qm_results);state.currentUser=JSON.parse(localStorage.qm_currentUser||'null'); if(state.currentUser) openDashboard();}
 function save(){localStorage.qm_users=JSON.stringify(state.users);localStorage.qm_quizzes=JSON.stringify(state.quizzes);localStorage.qm_results=JSON.stringify(state.results);localStorage.qm_currentUser=JSON.stringify(state.currentUser)}
-function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),2500)}
-const toastEl=document.getElementById('toast');
-function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+const toastEl=document.getElementById('toast'); function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),2500)}
+function showPage(id){['homePage','authPage','dashboardPage'].forEach(p=>document.getElementById(p).classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'})}
 function showAuth(type,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');loginForm.classList.toggle('hidden',type!=='login');registerForm.classList.toggle('hidden',type!=='register')}
 registerForm.onsubmit=e=>{e.preventDefault(); const u={name:regName.value,email:regEmail.value,password:regPassword.value,role:regRole.value}; if(state.users.find(x=>x.email===u.email&&x.role===u.role)) return toast('User already exists'); state.users.push(u); save(); registerForm.reset(); toast('Registered successfully')}
 loginForm.onsubmit=e=>{e.preventDefault(); const user=state.users.find(x=>x.email===loginEmail.value&&x.password===loginPassword.value&&x.role===loginRole.value); if(!user) return toast('Invalid credentials'); state.currentUser=user; save(); openDashboard(); toast('Login success')}
-function demoLogin(role){const m={student:'student@quiz.com',staff:'staff@quiz.com',admin:'admin@quiz.com'}; loginEmail.value=m[role]; loginPassword.value='1234'; loginRole.value=role; scrollToId('auth')}
-function logout(){state.currentUser=null;save();location.reload()}
-function openDashboard(){dashboardSection.classList.remove('hidden');dashTitle.textContent=`Welcome, ${state.currentUser.name}`;dashSubtitle.textContent=`${state.currentUser.role.toUpperCase()} control center`;currentRole.textContent=state.currentUser.role.toUpperCase();renderAnalytics();renderSidebar();}
-function renderAnalytics(){const my=state.results.filter(r=>r.student===state.currentUser?.email); analytics.innerHTML=`<div class='grid3' style='margin:16px 0'>
- <div class='card glass'><h3>Total Users</h3><p class='muted'>${state.users.length}</p></div>
- <div class='card glass'><h3>Total Quizzes</h3><p class='muted'>${state.quizzes.length}</p></div>
- <div class='card glass'><h3>${state.currentUser.role==='student'?'My Attempts':'Total Results'}</h3><p class='muted'>${state.currentUser.role==='student'?my.length:state.results.length}</p></div>
-</div>`}
+function demoLogin(role){const m={student:'student@quiz.com',staff:'staff@quiz.com',admin:'admin@quiz.com'}; loginEmail.value=m[role]; loginPassword.value='1234'; loginRole.value=role}
+function logout(){state.currentUser=null;save();showPage('homePage');location.reload()}
+function openDashboard(){showPage('dashboardPage'); dashTitle.textContent=`Welcome, ${state.currentUser.name}`; dashSubtitle.textContent=`${state.currentUser.role.toUpperCase()} control center`; currentRole.textContent=state.currentUser.role.toUpperCase(); renderAnalytics(); renderSidebar();}
+function renderAnalytics(){const my=state.results.filter(r=>r.student===state.currentUser?.email); analytics.innerHTML=`<div class='grid3' style='margin:16px 0'><div class='card glass'><h3>Total Users</h3><p class='muted'>${state.users.length}</p></div><div class='card glass'><h3>Total Quizzes</h3><p class='muted'>${state.quizzes.length}</p></div><div class='card glass'><h3>${state.currentUser.role==='student'?'My Attempts':'Total Results'}</h3><p class='muted'>${state.currentUser.role==='student'?my.length:state.results.length}</p></div></div>`}
 function renderSidebar(){const menus={student:[['📘 View Quizzes',renderStudentQuizzes],['⏳ Upcoming',renderUpcoming],['📄 My Results',renderMyResults],['🏆 Leaderboard',renderLeaderboard]],staff:[['➕ Create Quiz',renderCreateQuiz],['🛠 Manage Quizzes',renderManageQuizzes],['📊 Student Results',renderAllResults],['🏆 Leaderboard',renderLeaderboard]],admin:[['👨‍🎓 Manage Students',()=>renderUsers('student')],['👨‍🏫 Manage Staff',()=>renderUsers('staff')],['🗂 Manage Quizzes',renderManageQuizzes],['📈 All Results',renderAllResults],['🏆 Leaderboard',renderLeaderboard]]}; sidebar.innerHTML=''; menus[state.currentUser.role].forEach((m,i)=>{let b=document.createElement('button'); b.className='side-btn'+(i===0?' active':''); b.innerHTML=m[0]; b.onclick=()=>{document.querySelectorAll('.side-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); m[1]();}; sidebar.appendChild(b)}); menus[state.currentUser.role][0][1]();}
-function renderStudentQuizzes(){const list=state.quizzes.filter(q=>!q.upcoming); dashboardContent.innerHTML=`<div class='grid2'>${list.map(q=>`<div class='card glass quiz-card'><span class='badge'>${SUBJECT_ICONS[q.subject]} ${q.subject}</span><h3 style='margin-top:12px'>${q.title}</h3><div class='meta'><span class='badge'>${q.questions.length} Questions</span><span class='badge'>${Math.floor(q.duration/60)} min</span></div><button class='btn' onclick='startQuiz(${q.id})'>Attempt Now</button></div>`).join('')}</div>`}
-function renderUpcoming(){const list=state.quizzes.filter(q=>q.upcoming); dashboardContent.innerHTML=`<div class='grid2'>${list.map(q=>`<div class='card glass'><span class='badge'>⏳ Upcoming</span><h3 style='margin-top:12px'>${q.title}</h3><p class='muted'>${SUBJECT_ICONS[q.subject]} ${q.subject}</p></div>`).join('')||'<div class="card glass">No upcoming quizzes</div>'}</div>`}
-function renderMyResults(){const my=state.results.filter(r=>r.student===state.currentUser.email); dashboardContent.innerHTML=`<div class='card glass'><h3>My Results</h3><table><tr><th>Quiz</th><th>Subject</th><th>Score</th><th>Badge</th><th>Date</th></tr>${my.map(r=>`<tr><td>${r.title}</td><td>${r.subject}</td><td>${r.score}/${r.total}</td><td>${getBadge(r.score,r.total)}</td><td>${r.date}</td></tr>`).join('')||'<tr><td colspan="5">No results yet</td></tr>'}</table><br><button class='btn alt' onclick='renderReview()'>View Last Quiz Review</button></div>`}
+function renderStudentQuizzes(){const list=state.quizzes.filter(q=>!q.upcoming); dashboardContent.innerHTML=`<div class='grid2'>${list.map(q=>`<div class='card glass'><span class='badge'>${SUBJECT_ICONS[q.subject]} ${q.subject}</span><h3 style='margin:12px 0'>${q.title}</h3><div style='display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px'><span class='badge'>${q.questions.length} Questions</span><span class='badge'>${Math.floor(q.duration/60)} min</span></div><button class='btn' onclick='startQuiz(${q.id})'>Attempt Now</button></div>`).join('')}</div>`}
+function renderUpcoming(){const list=state.quizzes.filter(q=>q.upcoming); dashboardContent.innerHTML=`<div class='grid2'>${list.map(q=>`<div class='card glass'><span class='badge'>⏳ Upcoming</span><h3 style='margin:12px 0'>${q.title}</h3><p class='muted'>${SUBJECT_ICONS[q.subject]} ${q.subject}</p></div>`).join('')||'<div class="card glass">No upcoming quizzes</div>'}</div>`}
 function getBadge(score,total){const p=(score/total)*100; return p>=80?'🏆 Excellent':p>=60?'🥈 Good':'📘 Practice'}
-function startQuiz(id){const q=state.quizzes.find(x=>x.id===id); state.currentQuiz=q; state.timeLeft=q.duration; let html=`<div class='card glass'><div style='display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap'><div><span class='badge'>${SUBJECT_ICONS[q.subject]} ${q.subject}</span><h2 class='section-title' style='margin-top:10px'>${q.title}</h2></div><div class='timer' id='timerBox'>${formatTime(state.timeLeft)}</div></div><form id='quizForm'>`; q.questions.forEach((qq,i)=>{html+=`<div class='question glass'><h3>Q${i+1}. ${qq.q}</h3>${qq.options.map(opt=>`<label class='option'><input type='radio' name='q${i}' value='${opt}' required> ${opt}</label>`).join('')}</div>`}); html+=`<button class='btn ok' type='submit'>Submit Quiz</button></form></div>`; dashboardContent.innerHTML=html; state.timer=setInterval(()=>{state.timeLeft--; timerBox.textContent=formatTime(state.timeLeft); if(state.timeLeft<=0){clearInterval(state.timer); submitQuiz()}},1000); quizForm.onsubmit=e=>{e.preventDefault();submitQuiz()}}
+function renderMyResults(){const my=state.results.filter(r=>r.student===state.currentUser.email); dashboardContent.innerHTML=`<div class='card glass'><h3>My Results</h3><table><tr><th>Quiz</th><th>Subject</th><th>Score</th><th>Badge</th><th>Date</th></tr>${my.map(r=>`<tr><td>${r.title}</td><td>${r.subject}</td><td>${r.score}/${r.total}</td><td>${getBadge(r.score,r.total)}</td><td>${r.date}</td></tr>`).join('')||'<tr><td colspan="5">No results yet</td></tr>'}</table><br><button class='btn alt' onclick='renderReview()'>View Last Quiz Review</button></div>`}
+function startQuiz(id){const q=state.quizzes.find(x=>x.id===id); state.currentQuiz=q; state.timeLeft=q.duration; let html=`<div class='card glass'><div style='display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap'><div><span class='badge'>${SUBJECT_ICONS[q.subject]} ${q.subject}</span><h2 class='page-title' style='margin-top:10px'>${q.title}</h2></div><div class='timer' id='timerBox'>${formatTime(state.timeLeft)}</div></div><form id='quizForm'>`; q.questions.forEach((qq,i)=>{html+=`<div class='question glass'><h3>Q${i+1}. ${qq.q}</h3>${qq.options.map(opt=>`<label class='option'><input type='radio' name='q${i}' value='${opt}' required> ${opt}</label>`).join('')}</div>`}); html+=`<button class='btn ok' type='submit'>Submit Quiz</button></form></div>`; dashboardContent.innerHTML=html; state.timer=setInterval(()=>{state.timeLeft--; timerBox.textContent=formatTime(state.timeLeft); if(state.timeLeft<=0){clearInterval(state.timer); submitQuiz()}},1000); quizForm.onsubmit=e=>{e.preventDefault();submitQuiz()}}
 function submitQuiz(){clearInterval(state.timer); const q=state.currentQuiz; let score=0; state.lastReview=[]; q.questions.forEach((qq,i)=>{const picked=document.querySelector(`input[name=q${i}]:checked`)?.value||'Not Answered'; if(picked===qq.answer) score++; state.lastReview.push({question:qq.q,selected:picked,correct:qq.answer,ok:picked===qq.answer})}); state.results.push({student:state.currentUser.email,title:q.title,subject:q.subject,score,total:q.questions.length,date:new Date().toLocaleString()}); save(); toast(`Submitted! Score ${score}/${q.questions.length}`); renderMyResults()}
 function renderReview(){dashboardContent.innerHTML=`<div class='card glass'><h3>Last Quiz Review</h3>${state.lastReview.length?state.lastReview.map((r,i)=>`<div class='question glass'><h3>Q${i+1}. ${r.question}</h3><p class='muted'>Your Answer: ${r.selected}</p><p class='muted'>Correct Answer: ${r.correct}</p><p>${r.ok?'✅ Correct':'❌ Wrong'}</p></div>`).join(''):'<p class="muted">No recent quiz review available.</p>'}</div>`}
 function renderCreateQuiz(){dashboardContent.innerHTML=`<div class='card glass'><h3>Create Quiz</h3><div class='row'><input id='quizTitle' placeholder='Quiz Title'><select id='quizSubject'>${SUBJECTS.map(s=>`<option>${s}</option>`).join('')}</select></div><div class='row3' style='margin-top:14px'><input id='quizDuration' type='number' value='300' placeholder='Duration in seconds'><input id='numQuestions' type='number' value='1' placeholder='No. of Questions'><select id='quizUpcoming'><option value='false'>Publish Now</option><option value='true'>Set as Upcoming</option></select></div><button class='btn alt' style='margin-top:14px' onclick='buildQuestionFields()'>Generate Fields</button><div id='questionBuilder' style='margin-top:16px'></div></div>`}
@@ -198,4 +193,3 @@ seed();
 </script>
 </body>
 </html>
-
