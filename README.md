@@ -1,1 +1,0 @@
-# QUIZMASTER-demo
