@@ -3,240 +3,579 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz Master — Ultra Polished</title>
+  <title>Quiz Nexus Elite</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
     :root{
-      --bg1:#07131f;
-      --bg2:#0d2032;
-      --bg3:#101a2b;
-      --glass:rgba(255,255,255,.08);
+      --bg1:#04101d;
+      --bg2:#071a2d;
+      --bg3:#0d2140;
+      --glass:rgba(255,255,255,.09);
       --glass2:rgba(255,255,255,.05);
-      --stroke:rgba(255,255,255,.16);
-      --text:#eef6ff;
-      --muted:#9ab6d4;
-      --accent:#00c2ff;
-      --accent2:#6b5cff;
-      --accent3:#13e8c2;
+      --stroke:rgba(255,255,255,.15);
+      --text:#ecf6ff;
+      --muted:#9bb4d0;
+      --accent:#00d4ff;
+      --accent2:#6d5dfc;
+      --accent3:#00ffa3;
       --good:#22c55e;
       --warn:#f59e0b;
       --bad:#ef4444;
       --shadow:0 18px 60px rgba(0,0,0,.35);
       --radius:24px;
-      --cardGlow:0 0 30px rgba(0,194,255,.15),0 0 50px rgba(107,92,255,.12);
+      --navH:76px;
     }
-    body.light{
-      --bg1:#eef7ff;
-      --bg2:#dceeff;
-      --bg3:#d5e8ff;
-      --glass:rgba(255,255,255,.7);
-      --glass2:rgba(255,255,255,.45);
-      --stroke:rgba(255,255,255,.9);
-      --text:#10233f;
-      --muted:#536b8e;
-      --shadow:0 18px 60px rgba(0,120,255,.12);
-      --cardGlow:0 0 30px rgba(0,194,255,.08),0 0 50px rgba(107,92,255,.08);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));overflow-x:hidden;scroll-behavior:smooth}
-    body::before,body::after{
-      content:"";position:fixed;border-radius:50%;filter:blur(90px);opacity:.25;z-index:-3;pointer-events:none
-    }
-    body::before{width:420px;height:420px;left:-120px;top:-120px;background:var(--accent);animation:floatBlob 14s ease-in-out infinite}
-    body::after{width:520px;height:520px;right:-160px;bottom:-160px;background:var(--accent2);animation:floatBlob 18s ease-in-out infinite reverse}
-    @keyframes floatBlob{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-25px)}}
 
-    #mesh,#particles,#confetti,#bgShapes{position:fixed;inset:0;pointer-events:none}
-    #mesh{z-index:-2;background:
-      radial-gradient(circle at 20% 30%, rgba(0,194,255,.12), transparent 25%),
-      radial-gradient(circle at 80% 20%, rgba(107,92,255,.12), transparent 25%),
-      radial-gradient(circle at 60% 80%, rgba(19,232,194,.10), transparent 28%);}
-    #particles{z-index:-1;overflow:hidden}
-    #bgShapes{z-index:-1;overflow:hidden}
-    .particle,.shape{
-      position:absolute;border-radius:50%;opacity:.45;filter:blur(2px)
+    body.light{
+      --bg1:#edf7ff;
+      --bg2:#dbefff;
+      --bg3:#cfe5ff;
+      --glass:rgba(255,255,255,.65);
+      --glass2:rgba(255,255,255,.45);
+      --stroke:rgba(255,255,255,.85);
+      --text:#10233f;
+      --muted:#5d7496;
+      --accent:#0ea5e9;
+      --accent2:#6366f1;
+      --accent3:#10b981;
+      --shadow:0 18px 60px rgba(59,130,246,.14);
     }
-    .particle{animation:rise linear infinite}
-    .shape{border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px);animation:drift 16s ease-in-out infinite}
-    @keyframes rise{from{transform:translateY(110vh) scale(.6)}to{transform:translateY(-15vh) scale(1.2)}}
-    @keyframes drift{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-25px) rotate(10deg)}}
+
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      padding:0;
+      font-family:Inter,system-ui,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,212,255,.18), transparent 24%),
+        radial-gradient(circle at 80% 10%, rgba(109,93,252,.18), transparent 24%),
+        radial-gradient(circle at 80% 80%, rgba(0,255,163,.14), transparent 24%),
+        linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+      min-height:100vh;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+    }
+
+    body::before, body::after{
+      content:"";
+      position:fixed;
+      border-radius:50%;
+      filter:blur(90px);
+      opacity:.25;
+      z-index:-3;
+      pointer-events:none;
+      animation:floatBlob 16s ease-in-out infinite;
+    }
+    body::before{
+      width:420px;height:420px;
+      left:-120px;top:-120px;
+      background:var(--accent);
+    }
+    body::after{
+      width:520px;height:520px;
+      right:-150px;bottom:-150px;
+      background:var(--accent2);
+      animation-duration:20s;
+      animation-direction:reverse;
+    }
+    @keyframes floatBlob{
+      0%,100%{transform:translate(0,0)}
+      50%{transform:translate(30px,-25px)}
+    }
+
+    /* Mesh / particles */
+    #mesh{
+      position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden;
+      background:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+      opacity:.35;
+      animation:meshMove 25s linear infinite;
+    }
+    @keyframes meshMove{
+      from{transform:translateY(0)}
+      to{transform:translateY(40px)}
+    }
+
+    #particles{
+      position:fixed; inset:0; pointer-events:none; z-index:-1; overflow:hidden;
+    }
+    .particle{
+      position:absolute;
+      border-radius:50%;
+      opacity:.55;
+      filter:blur(2px);
+      animation:rise linear infinite;
+    }
+    @keyframes rise{
+      from{transform:translateY(110vh) scale(.6)}
+      to{transform:translateY(-15vh) scale(1.25)}
+    }
 
     .hidden{display:none!important}
-    .page{display:none;min-height:100vh;padding:16px;animation:fadeUp .55s ease}
+    .page{
+      display:none;
+      min-height:100vh;
+      padding:18px;
+      animation:fadePage .55s ease;
+    }
     .page.active{display:block}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @keyframes fadePage{
+      from{opacity:0; transform:translateY(14px)}
+      to{opacity:1; transform:none}
+    }
 
     .glass{
       background:var(--glass);
       border:1px solid var(--stroke);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      box-shadow:var(--shadow),var(--cardGlow);
-      border-radius:var(--radius)
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
     }
-    .container{max-width:1380px;margin:auto}
-    .topbar{
-      display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;position:sticky;top:10px;z-index:30
-    }
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{
-      width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-      display:grid;place-items:center;font-weight:900;color:#fff;box-shadow:0 10px 30px rgba(0,194,255,.28)
-    }
-    .btn{
-      border:none;cursor:pointer;padding:12px 18px;border-radius:16px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:800;
-      transition:.25s transform,.25s opacity,.25s box-shadow
-    }
-    .btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 10px 30px rgba(0,194,255,.18)}
-    .btn.alt{background:var(--glass2);border:1px solid var(--stroke);color:var(--text)}
-    .btn.bad{background:linear-gradient(135deg,#ff6b6b,#ef4444)}
-    .btn.good{background:linear-gradient(135deg,#22c55e,#16a34a)}
-    .btn.warn{background:linear-gradient(135deg,#f59e0b,#f97316)}
-    .btn.sm{padding:10px 14px;border-radius:14px;font-size:13px}
-    input,select,textarea{
-      width:100%;padding:12px 14px;border-radius:16px;border:1px solid var(--stroke);background:rgba(255,255,255,.08);
-      color:var(--text);outline:none
-    }
-    input::placeholder,textarea::placeholder{color:var(--muted)}
-    option{color:#111}
-    textarea{min-height:96px;resize:vertical}
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center;padding:30px 0 18px}
-    .hero h1{font-size:62px;line-height:1.02;margin:0}
-    .muted{color:var(--muted)}
-    .section-title{font-size:28px;margin:0 0 12px}
-    .small{font-size:13px}
-    .center{display:grid;place-items:center}
-    .row{display:flex;gap:14px;flex-wrap:wrap}
-    .row>*{flex:1}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .card{padding:22px}
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08)}
-    .tag{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
-    .easy{background:rgba(34,197,94,.16);border:1px solid rgba(34,197,94,.35)}
-    .medium{background:rgba(245,158,11,.16);border:1px solid rgba(245,158,11,.35)}
-    .hard{background:rgba(239,68,68,.16);border:1px solid rgba(239,68,68,.35)}
 
-    /* Home 3D */
-    .cubeWrap{perspective:1200px;display:grid;place-items:center;height:380px;position:relative;overflow:hidden}
-    .cube{position:relative;width:200px;height:200px;transform-style:preserve-3d;animation:spin 18s linear infinite}
-    .cube div{
-      position:absolute;width:200px;height:200px;border-radius:28px;border:1px solid rgba(255,255,255,.18);
-      background:linear-gradient(135deg,rgba(0,194,255,.18),rgba(107,92,255,.18));
-      display:grid;place-items:center;font-size:22px;font-weight:900;
-      box-shadow:inset 0 0 50px rgba(255,255,255,.05),0 0 50px rgba(0,194,255,.12)
+    .container{max-width:1380px; margin:auto}
+    .center{display:grid; place-items:center}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    .row{display:flex; gap:14px; flex-wrap:wrap}
+    .row>*{flex:1}
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px}
+    .card{padding:22px}
+    .section-title{font-size:28px; margin:0 0 12px}
+    .pill{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
     }
-    .f1{transform:translateZ(100px)} .f2{transform:rotateY(180deg) translateZ(100px)}
-    .f3{transform:rotateY(90deg) translateZ(100px)} .f4{transform:rotateY(-90deg) translateZ(100px)}
-    .f5{transform:rotateX(90deg) translateZ(100px)} .f6{transform:rotateX(-90deg) translateZ(100px)}
-    @keyframes spin{to{transform:rotateX(360deg) rotateY(360deg)}}
-    .floatIcon{position:absolute;font-size:24px;animation:orbit 8s linear infinite;opacity:.9}
-    .fi1{left:8%;top:20%}.fi2{left:12%;bottom:18%;animation-duration:10s}.fi3{right:10%;top:18%;animation-duration:12s}.fi4{right:8%;bottom:16%;animation-duration:9s}
-    @keyframes orbit{50%{transform:translateY(-14px) rotate(8deg)}}
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding:12px 18px;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff;
+      font-weight:800;
+      transition:.25s transform,.25s opacity,.25s box-shadow;
+      box-shadow:0 10px 28px rgba(0,212,255,.18);
+    }
+    .btn:hover{
+      transform:translateY(-2px) scale(1.02);
+      box-shadow:0 14px 36px rgba(0,212,255,.22);
+    }
+    .btn.alt{
+      background:var(--glass2);
+      border:1px solid var(--stroke);
+      color:var(--text);
+      box-shadow:none;
+    }
+    .btn.good{background:linear-gradient(135deg,#22c55e,#16a34a)}
+    .btn.bad{background:linear-gradient(135deg,#ff6b6b,#ef4444)}
+
+    input,select,textarea{
+      width:100%;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      outline:none;
+    }
+    input::placeholder, textarea::placeholder{color:var(--muted)}
+    textarea{min-height:100px; resize:vertical}
+    option{color:#111}
+
+    .topbar{
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:14px 18px; position:sticky; top:10px; z-index:20;
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+      width:50px;height:50px;border-radius:18px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:grid; place-items:center; font-weight:900; color:#fff;
+      box-shadow:0 10px 30px rgba(0,212,255,.22);
+    }
+
+    /* Home */
+    .hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:26px;
+      align-items:center;
+      padding:34px 0 18px;
+      min-height:calc(100vh - 120px);
+      position:relative;
+    }
+    .hero h1{
+      font-size:64px;
+      line-height:1.03;
+      margin:0;
+    }
+    .hero p{font-size:16px; line-height:1.7}
+
+    .cubeWrap{
+      perspective:1200px;
+      display:grid; place-items:center;
+      height:420px; position:relative; overflow:hidden;
+    }
+    .cube{
+      position:relative;
+      width:200px; height:200px;
+      transform-style:preserve-3d;
+      animation:spinCube 15s linear infinite;
+    }
+    .cube div{
+      position:absolute;
+      width:200px; height:200px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.18);
+      background:linear-gradient(135deg,rgba(0,212,255,.16),rgba(109,93,252,.16));
+      display:grid; place-items:center;
+      font-size:22px; font-weight:900;
+      box-shadow:inset 0 0 50px rgba(255,255,255,.05),0 0 50px rgba(0,212,255,.12);
+    }
+    .f1{transform:translateZ(100px)}
+    .f2{transform:rotateY(180deg) translateZ(100px)}
+    .f3{transform:rotateY(90deg) translateZ(100px)}
+    .f4{transform:rotateY(-90deg) translateZ(100px)}
+    .f5{transform:rotateX(90deg) translateZ(100px)}
+    .f6{transform:rotateX(-90deg) translateZ(100px)}
+    @keyframes spinCube{to{transform:rotateX(360deg) rotateY(360deg)}}
+
+    .floatObj{
+      position:absolute;
+      font-size:26px;
+      animation:floatObj 7s ease-in-out infinite;
+      opacity:.92;
+      text-shadow:0 0 18px rgba(0,212,255,.35);
+    }
+    .fo1{left:10%; top:16%}
+    .fo2{left:14%; bottom:18%; animation-duration:9s}
+    .fo3{right:12%; top:18%; animation-duration:10s}
+    .fo4{right:10%; bottom:16%; animation-duration:8s}
+    .fo5{left:44%; top:8%; animation-duration:11s}
+    @keyframes floatObj{
+      50%{transform:translateY(-16px) rotate(10deg)}
+    }
+
+    .showcaseStrip{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:18px;
+    }
+    .miniCard{
+      padding:18px; border-radius:22px; background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      transition:.3s;
+    }
+    .miniCard:hover{transform:translateY(-4px) rotateX(2deg)}
 
     /* Auth */
-    .authWrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
-    .loginScene{position:relative;min-height:620px;overflow:hidden}
-    .loginLamp{position:absolute;top:0;left:50%;transform:translateX(-50%);width:8px;height:170px;background:linear-gradient(#dbeafe,#94a3b8);border-radius:20px}
-    .loginGlow{position:absolute;top:120px;left:50%;transform:translateX(-50%);width:360px;height:360px;border-radius:50%;
-      background:radial-gradient(circle,rgba(183,243,255,.28),transparent 62%);filter:blur(8px);animation:pulse 2.8s ease-in-out infinite}
-    @keyframes pulse{50%{opacity:.55;transform:translateX(-50%) scale(1.06)}}
-    .orb,.ring,.meshCube{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.16)}
-    .orb{width:240px;height:240px;background:radial-gradient(circle at 30% 30%,rgba(0,194,255,.35),transparent 56%);left:18%;top:36%;animation:spin 20s linear infinite}
-    .ring{width:340px;height:340px;right:12%;top:24%;animation:spin 24s linear infinite reverse}
-    .orb2{width:120px;height:120px;right:18%;bottom:12%;background:radial-gradient(circle at 30% 30%,rgba(107,92,255,.35),transparent 60%);position:absolute;border-radius:50%;animation:floatBlob 8s ease-in-out infinite}
-    .meshCube{width:140px;height:140px;left:38%;top:22%;transform-style:preserve-3d;animation:spin 12s linear infinite}
-    .authCard{max-width:560px;margin:auto;padding:28px}
-    .tabs{display:flex;gap:10px;margin-bottom:16px}
-    .tab{flex:1;padding:13px;border-radius:16px;text-align:center;background:rgba(255,255,255,.06);cursor:pointer;font-weight:700}
-    .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+    .authWrap{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      align-items:center;
+    }
+    .authScene{
+      position:relative;
+      min-height:650px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+    }
+    .authOrb{
+      position:absolute;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.12);
+      animation:spinSlow 20s linear infinite;
+    }
+    .orbA{
+      width:280px;height:280px;
+      background:radial-gradient(circle at 30% 30%, rgba(0,212,255,.35), transparent 56%);
+      left:16%; top:36%;
+    }
+    .orbB{
+      width:360px;height:360px;
+      right:10%; top:20%;
+      animation-direction:reverse;
+    }
+    .orbC{
+      width:130px;height:130px;
+      right:18%; bottom:14%;
+      background:radial-gradient(circle at 30% 30%, rgba(109,93,252,.35), transparent 60%);
+      animation:floatBlob 8s ease-in-out infinite;
+      border-radius:50%;
+      position:absolute;
+    }
+    .loginRing{
+      width:220px; height:220px; border-radius:50%;
+      border:1px solid rgba(255,255,255,.15);
+      position:relative;
+      transform-style:preserve-3d;
+      animation:spinSlow 12s linear infinite;
+      box-shadow:0 0 80px rgba(0,212,255,.12);
+    }
+    .loginRing::before,.loginRing::after{
+      content:"";
+      position:absolute; inset:0;
+      border-radius:50%;
+      border:1px dashed rgba(255,255,255,.15);
+      transform:rotateX(70deg);
+    }
+    .loginRing::after{transform:rotateY(70deg)}
+    @keyframes spinSlow{to{transform:rotate(360deg)}}
+
+    .authCard{max-width:560px; margin:auto; padding:28px}
+    .tabs{display:flex; gap:10px; margin-bottom:16px}
+    .tab{
+      flex:1; padding:13px; border-radius:16px; text-align:center;
+      background:rgba(255,255,255,.06); cursor:pointer; font-weight:700;
+    }
+    .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff}
 
     /* Dashboard */
-    .dash{display:grid;grid-template-columns:280px 1fr;gap:18px}
-    .sidebar{padding:18px;position:sticky;top:16px;height:calc(100vh - 32px);overflow:auto}
+    .dash{display:grid; grid-template-columns:280px 1fr; gap:18px}
+    .sidebar{
+      padding:18px;
+      position:sticky; top:16px;
+      height:calc(100vh - 32px);
+      overflow:auto;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+    }
+    .sidebar::-webkit-scrollbar{width:8px}
+    .sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12); border-radius:20px}
+
     .sidebtn{
-      display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;margin:8px 0;border:1px solid transparent;cursor:pointer;background:transparent;color:var(--text)
+      display:flex; align-items:center; gap:12px;
+      padding:14px; border-radius:18px; margin:8px 0;
+      border:1px solid transparent; cursor:pointer;
+      background:transparent; color:var(--text);
+      transition:.25s;
+      width:100%;
+      font-size:15px;
     }
-    .sidebtn.active,.sidebtn:hover{background:rgba(255,255,255,.08);border-color:var(--stroke)}
-    .main{padding:6px 0}
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
-    .stat{padding:18px}
-    .quizQ{padding:18px;margin:12px 0;animation:fadeUp .35s ease}
-    .option{padding:12px;border-radius:14px;border:1px solid var(--stroke);margin:10px 0;cursor:pointer;transition:.2s}
-    .option:hover{transform:translateX(4px)}
-    .option.selected{outline:2px solid var(--accent);background:rgba(0,194,255,.12)}
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;padding:18px;z-index:60}
-    .modal.show{display:grid}
-    .box{width:min(1080px,96vw);max-height:90vh;overflow:auto;padding:22px}
-    .toast{position:fixed;right:18px;bottom:18px;padding:14px 18px;border-radius:18px;z-index:80}
-    .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-    .day{padding:14px;border-radius:14px;text-align:center;background:rgba(255,255,255,.06)}
-    .today{outline:2px solid var(--accent)}
-    .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:70}
-    .piece{position:absolute;top:-20px;width:10px;height:16px;animation:fall linear forwards}
-    @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
-    .avatar{width:82px;height:82px;border-radius:50%;object-fit:cover;border:2px solid var(--stroke)}
-    .table{width:100%;border-collapse:collapse}
-    .table th,.table td{padding:12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}
-    .progressRingWrap{display:flex;gap:18px;flex-wrap:wrap}
-    .ringCard{padding:18px;text-align:center}
-    .ringSvg{width:110px;height:110px;transform:rotate(-90deg)}
-    .ringBg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:10}
-    .ringFg{fill:none;stroke:url(#gradRing);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
-    .leaderPodium{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:16px;align-items:end;margin-bottom:20px}
-    .podiumCard{padding:18px;text-align:center;transform-style:preserve-3d;animation:podiumFloat 3s ease-in-out infinite}
-    .podiumCard:nth-child(2){animation-delay:.2s}
-    .podiumCard:nth-child(3){animation-delay:.4s}
-    @keyframes podiumFloat{50%{transform:translateY(-8px) rotateX(4deg)}}
-    .podium1{min-height:220px}.podium2{min-height:170px}.podium3{min-height:140px}
-    .thumb{width:100%;height:150px;object-fit:cover;border-radius:18px;border:1px solid rgba(255,255,255,.08)}
-    .dragArea{display:grid;gap:12px}
-    .dragItem{
-      padding:14px;border-radius:18px;border:1px solid var(--stroke);background:rgba(255,255,255,.05);
-      cursor:grab;transition:.18s transform,.18s opacity,.18s box-shadow
-    }
-    .dragItem:hover{transform:translateY(-2px)}
-    .dragItem.dragging{opacity:.45;transform:scale(.98) rotate(1deg);box-shadow:0 14px 30px rgba(0,0,0,.28)}
-    .ghostOver{outline:2px dashed var(--accent);background:rgba(0,194,255,.08)}
-    .mobileTop{display:none}
-    .drawer{display:none}
-    .subjectCard{padding:18px}
-    .subjectScore{font-size:30px;font-weight:900}
-    .chartGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .chartCard{padding:18px;min-height:320px}
-    .builderQList{display:grid;gap:12px}
-    .builderMini{
-      padding:12px;border-radius:16px;border:1px solid var(--stroke);background:rgba(255,255,255,.04)
+    .sidebtn.active,.sidebtn:hover{
+      background:rgba(255,255,255,.08);
+      border-color:var(--stroke);
+      transform:translateX(4px);
     }
 
+    .main{padding:6px 0}
+    .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px}
+    .stat{padding:18px; position:relative; overflow:hidden}
+    .stat::after{
+      content:""; position:absolute; right:-20px; bottom:-20px;
+      width:90px; height:90px; border-radius:50%;
+      background:radial-gradient(circle, rgba(0,212,255,.22), transparent 65%);
+    }
+
+    .quizQ{padding:18px; margin:12px 0}
+    .option{
+      padding:12px; border-radius:14px; border:1px solid var(--stroke);
+      margin:10px 0; cursor:pointer; transition:.25s;
+    }
+    .option:hover{transform:translateX(4px)}
+    .option.selected{
+      outline:2px solid var(--accent);
+      background:rgba(0,212,255,.12);
+    }
+
+    .modal{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      display:none; place-items:center;
+      padding:18px; z-index:80;
+    }
+    .modal.show{display:grid}
+    .box{
+      width:min(1000px,96vw);
+      max-height:90vh;
+      overflow:auto;
+      padding:22px;
+    }
+
+    .toast{
+      position:fixed; right:18px; bottom:18px;
+      padding:14px 18px; border-radius:18px; z-index:90;
+    }
+
+    .calendar{
+      display:grid; grid-template-columns:repeat(7,1fr); gap:8px;
+    }
+    .day{
+      padding:14px; border-radius:14px; text-align:center;
+      background:rgba(255,255,255,.06);
+    }
+    .today{outline:2px solid var(--accent)}
+
+    .confetti{
+      position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:70;
+    }
+    .piece{
+      position:absolute; top:-20px; width:10px; height:16px;
+      animation:fall linear forwards;
+    }
+    @keyframes fall{
+      to{transform:translateY(110vh) rotate(720deg)}
+    }
+
+    .avatar{
+      width:78px; height:78px; border-radius:50%;
+      object-fit:cover; border:2px solid var(--stroke);
+      box-shadow:0 10px 28px rgba(0,212,255,.15);
+    }
+
+    .table{width:100%; border-collapse:collapse}
+    .table th,.table td{
+      padding:12px; border-bottom:1px solid rgba(255,255,255,.08);
+      text-align:left; vertical-align:top;
+    }
+
+    /* Rings */
+    .ringGrid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:18px;
+      margin-top:18px;
+    }
+    .ringCard{
+      padding:20px;
+      text-align:center;
+    }
+    .ring{
+      width:120px; height:120px; margin:0 auto 12px;
+      border-radius:50%;
+      position:relative;
+      background:conic-gradient(var(--accent) var(--val), rgba(255,255,255,.08) 0);
+      display:grid; place-items:center;
+      box-shadow:0 0 40px rgba(0,212,255,.12);
+    }
+    .ring::before{
+      content:"";
+      position:absolute; inset:12px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--bg2),var(--bg3));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .ring span{
+      position:relative; z-index:2; font-weight:900; font-size:22px;
+    }
+
+    /* Builder drag cards */
+    .builderArea{
+      display:grid; grid-template-columns:1fr 1fr; gap:18px;
+    }
+    .dragList, .dropZone{
+      min-height:360px;
+      padding:16px;
+      border-radius:20px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.04);
+    }
+    .dragItem{
+      padding:14px;
+      margin:10px 0;
+      border-radius:16px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
+      cursor:grab;
+    }
+
+    /* Subject result cards */
+    .subjectCards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+      margin-top:16px;
+    }
+    .subjectCard{
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .subjectCard::after{
+      content:"";
+      position:absolute;
+      width:120px;height:120px;
+      right:-20px; bottom:-20px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(109,93,252,.18), transparent 70%);
+    }
+
+    /* Mobile bottom nav */
+    .mobileNav{
+      display:none;
+      position:fixed;
+      left:12px; right:12px; bottom:12px;
+      padding:10px;
+      border-radius:22px;
+      z-index:60;
+      justify-content:space-around;
+      align-items:center;
+    }
+    .mnavBtn{
+      background:transparent; border:none; color:var(--text);
+      display:grid; place-items:center; gap:4px; font-size:12px; cursor:pointer;
+    }
+
+    /* Responsive */
     @media(max-width:1100px){
-      .hero,.authWrap,.dash,.split,.chartGrid{grid-template-columns:1fr}
-      .hero h1{font-size:42px}
-      .sidebar{display:none}
-      .mobileTop{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;margin-bottom:12px}
-      .drawer{
-        display:block;position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:.25s
-      }
-      .drawer.show{opacity:1;pointer-events:auto}
-      .drawerPanel{
-        width:min(88vw,360px);height:100%;padding:18px;transform:translateX(-100%);transition:.28s ease;background:linear-gradient(180deg,rgba(8,18,30,.95),rgba(12,26,44,.95))
-      }
-      .drawer.show .drawerPanel{transform:none}
-      .leaderPodium{grid-template-columns:1fr}
+      .hero,.authWrap,.dash,.split,.builderArea{grid-template-columns:1fr}
+      .hero h1{font-size:46px}
+      .sidebar{position:relative;height:auto}
+      .authScene{min-height:320px}
+      .showcaseStrip{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:760px){
+      .topbar{flex-direction:column; align-items:stretch}
+      .row>*{flex:1 1 100%}
       .calendar{grid-template-columns:repeat(2,1fr)}
+      .showcaseStrip{grid-template-columns:1fr}
+      .dash{padding-bottom:90px}
+      .mobileNav{display:flex}
+      .sidebar{display:none}
+      .hero h1{font-size:38px}
+      .cubeWrap{height:320px}
+      .cube{width:160px;height:160px}
+      .cube div{width:160px;height:160px}
+      .f1{transform:translateZ(80px)}
+      .f2{transform:rotateY(180deg) translateZ(80px)}
+      .f3{transform:rotateY(90deg) translateZ(80px)}
+      .f4{transform:rotateY(-90deg) translateZ(80px)}
+      .f5{transform:rotateX(90deg) translateZ(80px)}
+      .f6{transform:rotateX(-90deg) translateZ(80px)}
     }
   </style>
 </head>
 <body>
+
 <div id="mesh"></div>
-<div id="bgShapes"></div>
 <div id="particles"></div>
 <div id="confetti" class="confetti"></div>
 
-<audio id="clickSound"><source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg"></audio>
-<audio id="submitSound"><source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg"></audio>
+<audio id="clickSound">
+  <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
+</audio>
+<audio id="submitSound">
+  <source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg">
+</audio>
 
 <!-- HOME -->
 <section id="home" class="page active">
@@ -245,10 +584,11 @@
       <div class="brand">
         <div class="logo">Q</div>
         <div>
-          <div style="font-weight:900">Quiz Master</div>
-          <div class="small muted">Professional Quiz Management Platform</div>
+          <div style="font-weight:900">Quiz Nexus Elite</div>
+          <div class="small muted">Professional Smart Quiz Platform</div>
         </div>
       </div>
+
       <div class="row" style="flex:0 0 auto">
         <button class="btn alt" onclick="toggleTheme()">🌗 Theme</button>
         <button class="btn alt" onclick="showPage('about')">About</button>
@@ -256,36 +596,54 @@
       </div>
     </div>
 
-    <div class="hero" style="position:relative">
+    <div class="hero">
       <div>
-        <span class="pill">⚡ Interactive Learning & Assessment Workspace</span>
-        <h1><span id="typing"></span></h1>
+        <span class="pill">⚡ Premium 3D Glass Learning Experience</span>
+        <h1 style="margin-top:14px"><span id="typing"></span></h1>
         <p class="muted">
-          Create, manage, and attempt subject-wise quizzes with timers, analytics, certificates,
-          question builders, leaderboard, calendar, announcements, and polished dashboards — all in one single-file website.
+          Create, manage, and attempt subject-wise quizzes with animated dashboards,
+          real timers, live analytics, leaderboard ranking, certificates, staff tools,
+          admin controls, and project-expo level UI — all in one premium single-file website.
         </p>
+
         <div class="row" style="margin-top:18px">
           <button class="btn" onclick="showPage('auth')">Get Started</button>
           <button class="btn alt" onclick="showPage('about')">Explore Features</button>
         </div>
-        <div class="cards" style="margin-top:22px">
-          <div class="glass card"><h3>🎯 Subject Quiz Bank</h3><p class="muted">5 subjects with sample quiz sets and custom staff creation.</p></div>
-          <div class="glass card"><h3>📊 Smart Dashboards</h3><p class="muted">Animated charts, score breakdown, and activity insights.</p></div>
-          <div class="glass card"><h3>🏆 Results & Certificates</h3><p class="muted">Generate reports, badges, and leaderboard progress.</p></div>
+
+        <div class="showcaseStrip">
+          <div class="miniCard glass">
+            <h3>🎯 Smart Quizzes</h3>
+            <p class="muted">Timer-based subject-wise quizzes with random attempt support.</p>
+          </div>
+          <div class="miniCard glass">
+            <h3>📊 Live Analytics</h3>
+            <p class="muted">Animated radar and bar charts for results and admin performance.</p>
+          </div>
+          <div class="miniCard glass">
+            <h3>🏆 Achievements</h3>
+            <p class="muted">Leaderboard, badges, certificates, and progress rings.</p>
+          </div>
+          <div class="miniCard glass">
+            <h3>🛠 Staff Builder</h3>
+            <p class="muted">Advanced drag-and-build question creator with question bank.</p>
+          </div>
         </div>
       </div>
 
       <div class="cubeWrap glass">
-        <div class="floatIcon fi1">📘</div>
-        <div class="floatIcon fi2">🧠</div>
-        <div class="floatIcon fi3">🏆</div>
-        <div class="floatIcon fi4">⚙️</div>
+        <div class="floatObj fo1">📘</div>
+        <div class="floatObj fo2">🧠</div>
+        <div class="floatObj fo3">🏆</div>
+        <div class="floatObj fo4">⚙️</div>
+        <div class="floatObj fo5">📊</div>
+
         <div class="cube">
           <div class="f1">LEARN</div>
-          <div class="f2">CREATE</div>
-          <div class="f3">ATTEMPT</div>
-          <div class="f4">TRACK</div>
-          <div class="f5">RESULT</div>
+          <div class="f2">BUILD</div>
+          <div class="f3">TRACK</div>
+          <div class="f4">SCORE</div>
+          <div class="f5">ACHIEVE</div>
           <div class="f6">MASTER</div>
         </div>
       </div>
@@ -297,13 +655,37 @@
 <section id="about" class="page">
   <div class="container">
     <div class="topbar glass">
-      <div class="brand"><div class="logo">Q</div><div><b>About Quiz Master</b></div></div>
+      <div class="brand">
+        <div class="logo">Q</div>
+        <div><b>About Quiz Nexus Elite</b></div>
+      </div>
       <button class="btn alt" onclick="showPage('home')">← Home</button>
     </div>
+
     <div class="cards" style="margin-top:18px">
-      <div class="glass card"><h2 class="section-title">Why this platform?</h2><p class="muted">Built for students, staff, and admins with timer-based quizzes, result tracking, question management, and modern animated UI.</p></div>
-      <div class="glass card"><h2 class="section-title">Built-in Features</h2><p class="muted">Drag & drop builder, charts, PDF export, sound settings, attendance, announcements, calendar, badges, and more.</p></div>
-      <div class="glass card"><h2 class="section-title">Single File Project</h2><p class="muted">Everything runs inside one <code>index.html</code> using <code>localStorage</code> for project/demo use.</p></div>
+      <div class="glass card">
+        <h2 class="section-title">Why this platform?</h2>
+        <p class="muted">
+          Built for students, staff, and admins with premium UI, timer-based tests,
+          smart performance analytics, staff quiz creation tools, and polished dashboards.
+        </p>
+      </div>
+
+      <div class="glass card">
+        <h2 class="section-title">Built-in Features</h2>
+        <p class="muted">
+          Floating neon mesh, 3D login, random quiz generator, charts, PDF export,
+          attendance, announcements, calendar, badges, leaderboard, progress rings, and more.
+        </p>
+      </div>
+
+      <div class="glass card">
+        <h2 class="section-title">Single File Power</h2>
+        <p class="muted">
+          Everything runs in one <code>index.html</code> using <code>localStorage</code>
+          for demo / college project / project expo use.
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -311,15 +693,14 @@
 <!-- AUTH -->
 <section id="auth" class="page">
   <div class="container authWrap">
-    <div class="glass loginScene center">
-      <div class="loginLamp"></div>
-      <div class="loginGlow"></div>
-      <div class="orb"></div>
-      <div class="ring"></div>
-      <div class="orb2"></div>
-      <div class="meshCube"></div>
+    <div class="glass authScene">
+      <div class="authOrb orbA"></div>
+      <div class="authOrb orbB"></div>
+      <div class="orbC"></div>
+
       <div style="z-index:2;text-align:center;padding:20px">
-        <h1 style="font-size:48px;margin:0">Secure Access</h1>
+        <div class="loginRing"></div>
+        <h1 style="font-size:48px;margin:24px 0 8px">Secure 3D Access</h1>
         <p class="muted">Login or register as Student / Staff / Admin</p>
       </div>
     </div>
@@ -337,12 +718,14 @@
           <input id="loginPassword" type="password" placeholder="Password">
         </div>
         <select id="loginRole">
-          <option value="student">student</option>
-          <option value="staff">staff</option>
-          <option value="admin">admin</option>
+          <option>student</option>
+          <option>staff</option>
+          <option>admin</option>
         </select>
         <button class="btn" style="width:100%;margin-top:14px" onclick="login()">Login</button>
-        <p class="small muted" style="margin-top:10px">Demo: admin@quiz.com / admin123 | staff@quiz.com / staff123 | student@quiz.com / student123</p>
+        <p class="small muted" style="margin-top:10px">
+          Demo: admin@quiz.com / admin123 | staff@quiz.com / staff123 | student@quiz.com / student123
+        </p>
       </div>
 
       <div id="registerForm" class="hidden">
@@ -354,9 +737,9 @@
         <div class="row">
           <input id="regPassword" type="password" placeholder="Password">
           <select id="regRole">
-            <option value="student">student</option>
-            <option value="staff">staff</option>
-            <option value="admin">admin</option>
+            <option>student</option>
+            <option>staff</option>
+            <option>admin</option>
           </select>
         </div>
         <button class="btn" style="width:100%;margin-top:14px" onclick="register()">Register</button>
@@ -372,230 +755,290 @@
 
 <!-- DASHBOARD -->
 <section id="dashboard" class="page">
-  <div class="container">
-
-    <div class="mobileTop glass">
+  <div class="container dash">
+    <!-- SIDEBAR -->
+    <aside class="glass sidebar">
       <div class="brand">
         <div class="logo">Q</div>
-        <div><b id="mobileRoleTitle">Dashboard</b><div class="small muted" id="mobileUserLabel"></div></div>
+        <div>
+          <div id="roleTitle" style="font-weight:900">Dashboard</div>
+          <div class="small muted" id="userLabel"></div>
+        </div>
       </div>
-      <button class="btn alt" onclick="toggleDrawer()">☰ Menu</button>
-    </div>
 
-    <div id="drawer" class="drawer" onclick="drawerBgClose(event)">
-      <div class="drawerPanel glass" onclick="event.stopPropagation()">
-        <div id="drawerMenu"></div>
+      <div class="center" style="margin:18px 0">
+        <img id="avatarPreview" class="avatar" src="" alt="avatar">
       </div>
-    </div>
 
-    <div class="dash">
-      <aside class="glass sidebar" id="desktopSidebar">
-        <div id="sidebarMenu"></div>
-      </aside>
+      <button class="sidebtn active" onclick="openPanel('overview',this)">🏠 Overview</button>
+      <button class="sidebtn studentOnly" onclick="openPanel('studentQuiz',this)">📝 View / Attempt Quiz</button>
+      <button class="sidebtn studentOnly" onclick="openPanel('studentResults',this)">📄 Results</button>
+      <button class="sidebtn studentOnly" onclick="openPanel('upcoming',this)">📅 Upcoming Quizzes</button>
 
-      <main class="main">
-        <div id="overview" class="panel glass card">
-          <h2 class="section-title">Overview</h2>
-          <div class="stats">
-            <div class="glass stat"><h3>Total Quizzes</h3><h1 id="statQuiz">0</h1></div>
-            <div class="glass stat"><h3>Total Results</h3><h1 id="statResults">0</h1></div>
-            <div class="glass stat"><h3>Attendance</h3><h1 id="statAttendance">0%</h1></div>
-            <div class="glass stat"><h3>Badges</h3><h1 id="statBadges">0</h1></div>
+      <button class="sidebtn" onclick="openPanel('leaderboard',this)">🏆 Leaderboard</button>
+
+      <button class="sidebtn staffOnly" onclick="openPanel('staffBuilder',this)">🛠 Create Quiz</button>
+      <button class="sidebtn staffOnly" onclick="openPanel('manageQuiz',this)">🧩 Manage Quiz</button>
+      <button class="sidebtn staffOnly" onclick="openPanel('viewStudentResults',this)">📊 Student Results</button>
+
+      <button class="sidebtn adminOnly" onclick="openPanel('adminManage',this)">👥 Manage Users</button>
+      <button class="sidebtn adminOnly" onclick="openPanel('adminQuizManage',this)">📚 Manage Quizzes</button>
+      <button class="sidebtn adminOnly" onclick="openPanel('announcements',this)">📢 Announcements</button>
+
+      <button class="sidebtn" onclick="openPanel('profile',this)">👤 Profile</button>
+      <button class="sidebtn" onclick="openPanel('calendar',this)">🗓 Calendar</button>
+      <button class="sidebtn" onclick="openPanel('analytics',this)">📈 Analytics</button>
+      <button class="sidebtn" onclick="openPanel('settings',this)">⚙️ Settings</button>
+
+      <div class="row" style="margin-top:14px">
+        <button class="btn alt" onclick="toggleTheme()">Theme</button>
+        <button class="btn bad" onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- OVERVIEW -->
+      <div id="overview" class="panel glass card">
+        <h2 class="section-title">Overview</h2>
+
+        <div class="stats">
+          <div class="glass stat"><h3>Total Quizzes</h3><h1 id="statQuiz">0</h1></div>
+          <div class="glass stat"><h3>Total Results</h3><h1 id="statResults">0</h1></div>
+          <div class="glass stat"><h3>Attendance</h3><h1 id="statAttendance">0%</h1></div>
+          <div class="glass stat"><h3>Badges</h3><h1 id="statBadges">0</h1></div>
+        </div>
+
+        <div class="split" style="margin-top:18px">
+          <div class="glass card">
+            <h3>🎯 AI Suggestion Panel</h3>
+            <p id="aiSuggestion" class="muted"></p>
+            <button class="btn alt" onclick="generateAISuggestion()">Refresh Suggestion</button>
           </div>
 
-          <div class="split" style="margin-top:18px">
-            <div class="glass card">
-              <h3>🎯 AI Suggestion Panel</h3>
-              <p id="aiSuggestion" class="muted"></p>
-              <button class="btn alt" onclick="generateAISuggestion()">Refresh Suggestion</button>
-            </div>
-            <div class="glass card">
-              <h3>📢 Latest Announcement</h3>
-              <p id="latestAnnouncement" class="muted"></p>
-            </div>
-          </div>
-
-          <div class="progressRingWrap" style="margin-top:18px" id="overviewRings"></div>
-        </div>
-
-        <div id="studentQuiz" class="panel glass card hidden">
-          <div class="row">
-            <input id="quizSearch" placeholder="Search quizzes by title or subject" oninput="renderStudentQuizzes()">
-            <select id="quizFilter" onchange="renderStudentQuizzes()"><option value="all">All Subjects</option></select>
-            <button class="btn alt" onclick="randomQuiz()">🎲 Random Quiz</button>
-          </div>
-          <div id="studentQuizList" class="cards" style="margin-top:18px"></div>
-        </div>
-
-        <div id="studentResults" class="panel glass card hidden">
-          <h2 class="section-title">My Results</h2>
-          <div id="subjectResultCards" class="cards" style="margin-bottom:18px"></div>
-          <div id="studentResultsList"></div>
-        </div>
-
-        <div id="leaderboard" class="panel glass card hidden">
-          <h2 class="section-title">🏆 Leaderboard</h2>
-          <div id="leaderboardList"></div>
-        </div>
-
-        <div id="upcoming" class="panel glass card hidden">
-          <h2 class="section-title">Upcoming Quizzes</h2>
-          <div id="upcomingList"></div>
-        </div>
-
-        <div id="staffBuilder" class="panel glass card hidden">
-          <h2 class="section-title">Quiz Builder Workspace</h2>
-
-          <div class="split">
-            <div class="glass card">
-              <h3>Create Quiz</h3>
-              <div class="row">
-                <input id="quizTitle" placeholder="Quiz Title">
-                <select id="quizSubject"></select>
-              </div>
-              <div class="row">
-                <input id="quizCount" type="number" placeholder="Number of Questions" min="1" value="5">
-                <input id="quizDuration" type="number" placeholder="Duration (minutes)" min="1" value="5">
-              </div>
-              <div class="row">
-                <input id="quizDue" type="date">
-                <select id="quizDifficulty">
-                  <option value="Easy">Easy</option>
-                  <option value="Medium" selected>Medium</option>
-                  <option value="Hard">Hard</option>
-                </select>
-              </div>
-              <input type="file" id="quizThumbUpload" accept="image/*">
-              <p class="small muted">Quiz image thumbnail upload supported.</p>
-              <textarea id="quizQuestions" placeholder='Questions JSON will appear here...'></textarea>
-              <button class="btn" onclick="saveQuiz()">Save Quiz</button>
-            </div>
-
-            <div class="glass card">
-              <h3>Drag & Build Questions</h3>
-              <div class="row">
-                <input id="sqQ" placeholder="Question text">
-                <select id="sqAns">
-                  <option value="0">Correct: A</option>
-                  <option value="1">Correct: B</option>
-                  <option value="2">Correct: C</option>
-                  <option value="3">Correct: D</option>
-                </select>
-              </div>
-              <div class="row"><input id="sq1" placeholder="Option A"><input id="sq2" placeholder="Option B"></div>
-              <div class="row"><input id="sq3" placeholder="Option C"><input id="sq4" placeholder="Option D"></div>
-              <div class="row" style="margin-top:10px">
-                <button class="btn alt" onclick="addSingleQuestion()">➕ Add Question</button>
-                <button class="btn good" onclick="clearBuilder()">Clear</button>
-                <button class="btn warn" onclick="openQuestionEditor()">📝 Editor</button>
-              </div>
-              <div class="dragArea" id="builderDragList" style="margin-top:12px"></div>
-              <textarea id="builderPreview" placeholder="Live built questions JSON" style="margin-top:12px"></textarea>
-
-              <hr style="border-color:rgba(255,255,255,.08);margin:18px 0">
-
-              <select id="bankSubject"></select>
-              <button class="btn alt" style="margin-top:12px" onclick="loadBank()">Load Sample Questions</button>
-              <textarea id="bankPreview" placeholder="Question bank preview"></textarea>
-              <button class="btn good" onclick="useBankQuestions()">Use in Builder</button>
-            </div>
+          <div class="glass card">
+            <h3>📢 Latest Announcement</h3>
+            <p id="latestAnnouncement" class="muted"></p>
           </div>
         </div>
 
-        <div id="manageQuiz" class="panel glass card hidden">
-          <h2 class="section-title">Manage Quiz</h2>
-          <div class="row">
-            <input id="manageSearch" placeholder="Search by title / subject / difficulty" oninput="renderManageQuiz()">
-            <select id="manageFilter" onchange="renderManageQuiz()">
-              <option value="all">All Subjects</option>
+        <div class="ringGrid">
+          <div class="glass ringCard">
+            <div class="ring" id="ringAccuracy" style="--val:0deg"><span>0%</span></div>
+            <h4>Accuracy</h4>
+            <p class="small muted">Overall correct answers</p>
+          </div>
+          <div class="glass ringCard">
+            <div class="ring" id="ringAttempts" style="--val:0deg"><span>0%</span></div>
+            <h4>Attempts</h4>
+            <p class="small muted">Quiz participation</p>
+          </div>
+          <div class="glass ringCard">
+            <div class="ring" id="ringRank" style="--val:0deg"><span>0%</span></div>
+            <h4>Performance</h4>
+            <p class="small muted">Rank performance index</p>
+          </div>
+        </div>
+
+        <div class="subjectCards" id="subjectResultCards"></div>
+      </div>
+
+      <!-- STUDENT QUIZ -->
+      <div id="studentQuiz" class="panel glass card hidden">
+        <div class="row">
+          <input id="quizSearch" placeholder="Search quizzes by title or subject" oninput="renderStudentQuizzes()">
+          <select id="quizFilter" onchange="renderStudentQuizzes()">
+            <option value="all">All Subjects</option>
+          </select>
+          <button class="btn alt" onclick="randomQuiz()">🎲 Random Quiz</button>
+        </div>
+        <div id="studentQuizList" class="cards" style="margin-top:18px"></div>
+      </div>
+
+      <!-- STUDENT RESULTS -->
+      <div id="studentResults" class="panel glass card hidden">
+        <h2 class="section-title">My Results</h2>
+        <div id="studentResultsList"></div>
+      </div>
+
+      <!-- LEADERBOARD -->
+      <div id="leaderboard" class="panel glass card hidden">
+        <h2 class="section-title">🏆 Leaderboard</h2>
+        <div id="leaderboardList"></div>
+      </div>
+
+      <!-- UPCOMING -->
+      <div id="upcoming" class="panel glass card hidden">
+        <h2 class="section-title">Upcoming Quizzes</h2>
+        <div id="upcomingList"></div>
+      </div>
+
+      <!-- STAFF BUILDER -->
+      <div id="staffBuilder" class="panel glass card hidden">
+        <h2 class="section-title">Advanced Staff Quiz Builder</h2>
+
+        <div class="split">
+          <div class="glass card">
+            <h3>Create Quiz</h3>
+            <div class="row">
+              <input id="quizTitle" placeholder="Quiz Title">
+              <select id="quizSubject"></select>
+            </div>
+            <div class="row">
+              <input id="quizCount" type="number" placeholder="Number of Questions" min="1" value="5">
+              <input id="quizDuration" type="number" placeholder="Duration (minutes)" min="1" value="5">
+            </div>
+            <input id="quizDue" type="date">
+            <textarea id="quizQuestions" placeholder='Paste JSON format: [{"q":"Question?","options":["A","B","C","D"],"answer":0}]'></textarea>
+            <button class="btn" onclick="saveQuiz()">Save Quiz</button>
+          </div>
+
+          <div class="glass card">
+            <h3>Drag-and-Build Question Creator</h3>
+
+            <div class="row">
+              <input id="sqQ" placeholder="Question text">
+            </div>
+            <div class="row">
+              <input id="sq1" placeholder="Option A">
+              <input id="sq2" placeholder="Option B">
+            </div>
+            <div class="row">
+              <input id="sq3" placeholder="Option C">
+              <input id="sq4" placeholder="Option D">
+            </div>
+            <select id="sqAns">
+              <option value="0">Correct: A</option>
+              <option value="1">Correct: B</option>
+              <option value="2">Correct: C</option>
+              <option value="3">Correct: D</option>
             </select>
-            <select id="manageDifficultyFilter" onchange="renderManageQuiz()">
-              <option value="all">All Difficulty</option>
-              <option value="Easy">Easy</option>
-              <option value="Medium">Medium</option>
-              <option value="Hard">Hard</option>
-            </select>
-          </div>
-          <div id="manageQuizList" style="margin-top:18px"></div>
-        </div>
 
-        <div id="viewStudentResults" class="panel glass card hidden">
-          <h2 class="section-title">Student Results</h2>
-          <div id="allResultsList"></div>
-        </div>
-
-        <div id="adminManage" class="panel glass card hidden">
-          <h2 class="section-title">Manage Students / Staff / Admin</h2>
-          <div id="userManageList"></div>
-        </div>
-
-        <div id="adminQuizManage" class="panel glass card hidden">
-          <h2 class="section-title">Admin Quiz Management</h2>
-          <div id="adminQuizList"></div>
-        </div>
-
-        <div id="announcements" class="panel glass card hidden">
-          <h2 class="section-title">Admin Announcements</h2>
-          <textarea id="announcementText" placeholder="Write announcement"></textarea>
-          <button class="btn" style="margin-top:12px" onclick="addAnnouncement()">Post Announcement</button>
-          <div id="announcementList" style="margin-top:16px"></div>
-        </div>
-
-        <div id="profile" class="panel glass card hidden">
-          <h2 class="section-title">Profile</h2>
-          <div class="split">
-            <div class="glass card">
-              <p><b>Name:</b> <span id="profileName"></span></p>
-              <p><b>Email:</b> <span id="profileEmail"></span></p>
-              <p><b>Role:</b> <span id="profileRole"></span></p>
-              <input type="file" id="avatarUpload" accept="image/*">
-              <p class="small muted">Real image upload supported (stored in browser).</p>
+            <div class="row" style="margin-top:10px">
+              <button class="btn alt" onclick="addSingleQuestion()">➕ Add Question</button>
+              <button class="btn good" onclick="clearBuilder()">Clear</button>
             </div>
-            <div class="glass card">
-              <h3>Achievements</h3>
-              <div id="badgeList"></div>
-              <h3 style="margin-top:18px">Attendance Tracker</h3>
-              <div id="attendanceList"></div>
+
+            <div class="builderArea" style="margin-top:16px">
+              <div class="dragList" id="dragList">
+                <h4>Built Questions</h4>
+                <div id="dragItems"></div>
+              </div>
+              <div class="dropZone" id="dropZone">
+                <h4>Question Bank</h4>
+                <select id="bankSubject"></select>
+                <button class="btn alt" style="margin-top:12px" onclick="loadBank()">Load Sample Questions</button>
+                <textarea id="bankPreview" placeholder="Question bank preview"></textarea>
+                <button class="btn good" onclick="useBankQuestions()">Use in Builder</button>
+              </div>
             </div>
+
+            <textarea id="builderPreview" placeholder="Live built questions will appear here" style="margin-top:16px"></textarea>
           </div>
         </div>
+      </div>
 
-        <div id="calendar" class="panel glass card hidden">
-          <h2 class="section-title">Quiz Calendar</h2>
-          <div id="calendarGrid" class="calendar"></div>
-        </div>
+      <!-- MANAGE QUIZ -->
+      <div id="manageQuiz" class="panel glass card hidden">
+        <h2 class="section-title">Manage Quiz</h2>
+        <div id="manageQuizList"></div>
+      </div>
 
-        <div id="analytics" class="panel glass card hidden">
-          <h2 class="section-title">Analytics Dashboard</h2>
-          <div class="chartGrid">
-            <div class="glass chartCard"><canvas id="analyticsChart1"></canvas></div>
-            <div class="glass chartCard"><canvas id="analyticsChart2"></canvas></div>
-            <div class="glass chartCard"><canvas id="analyticsChart3"></canvas></div>
+      <!-- VIEW RESULTS -->
+      <div id="viewStudentResults" class="panel glass card hidden">
+        <h2 class="section-title">Student Results</h2>
+        <div id="allResultsList"></div>
+      </div>
+
+      <!-- ADMIN MANAGE USERS -->
+      <div id="adminManage" class="panel glass card hidden">
+        <h2 class="section-title">Manage Students / Staff / Admin</h2>
+        <div id="userManageList"></div>
+      </div>
+
+      <!-- ADMIN QUIZ -->
+      <div id="adminQuizManage" class="panel glass card hidden">
+        <h2 class="section-title">Admin Quiz Management</h2>
+        <div id="adminQuizList"></div>
+      </div>
+
+      <!-- ANNOUNCEMENTS -->
+      <div id="announcements" class="panel glass card hidden">
+        <h2 class="section-title">Admin Announcements</h2>
+        <textarea id="announcementText" placeholder="Write announcement"></textarea>
+        <button class="btn" style="margin-top:12px" onclick="addAnnouncement()">Post Announcement</button>
+        <div id="announcementList" style="margin-top:16px"></div>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="profile" class="panel glass card hidden">
+        <h2 class="section-title">Profile</h2>
+        <div class="split">
+          <div class="glass card">
+            <p><b>Name:</b> <span id="profileName"></span></p>
+            <p><b>Email:</b> <span id="profileEmail"></span></p>
+            <p><b>Role:</b> <span id="profileRole"></span></p>
+            <input type="file" id="avatarUpload" accept="image/*">
+            <p class="small muted">Real image upload supported (stored in browser).</p>
+          </div>
+
+          <div class="glass card">
+            <h3>Achievements</h3>
+            <div id="badgeList"></div>
+            <h3 style="margin-top:18px">Attendance Tracker</h3>
+            <div id="attendanceList"></div>
           </div>
         </div>
+      </div>
 
-        <div id="settings" class="panel glass card hidden">
-          <h2 class="section-title">Settings</h2>
-          <div class="row">
-            <button class="btn alt" onclick="toggleTheme()">Dark / Light Mode</button>
-            <button class="btn alt" onclick="toggleSound()">Sound Toggle</button>
-            <button class="btn alt" onclick="startTutorial()">Onboarding Tutorial</button>
-            <button class="btn bad" onclick="resetDemo()">Reset Demo Data</button>
+      <!-- CALENDAR -->
+      <div id="calendar" class="panel glass card hidden">
+        <h2 class="section-title">Quiz Calendar</h2>
+        <div id="calendarGrid" class="calendar"></div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div id="analytics" class="panel glass card hidden">
+        <h2 class="section-title">Advanced Analytics Dashboard</h2>
+        <div class="split">
+          <div class="glass card">
+            <canvas id="analyticsChart" height="140"></canvas>
+          </div>
+          <div class="glass card">
+            <canvas id="analyticsBarChart" height="140"></canvas>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="settings" class="panel glass card hidden">
+        <h2 class="section-title">Settings</h2>
+        <div class="row">
+          <button class="btn alt" onclick="toggleTheme()">Dark / Light Mode</button>
+          <button class="btn alt" onclick="toggleSound()">Sound Toggle</button>
+          <button class="btn alt" onclick="startTutorial()">Onboarding Tutorial</button>
+          <button class="btn bad" onclick="resetDemo()">Reset Demo Data</button>
+        </div>
+      </div>
+    </main>
   </div>
 </section>
 
-<!-- QUIZ ATTEMPT -->
+<!-- MOBILE NAV -->
+<div class="mobileNav glass" id="mobileNav">
+  <button class="mnavBtn" onclick="openMobilePanel('overview')">🏠<span>Home</span></button>
+  <button class="mnavBtn" onclick="openMobilePanel('studentQuiz')">📝<span>Quiz</span></button>
+  <button class="mnavBtn" onclick="openMobilePanel('leaderboard')">🏆<span>Rank</span></button>
+  <button class="mnavBtn" onclick="openMobilePanel('analytics')">📈<span>Stats</span></button>
+  <button class="mnavBtn" onclick="openMobilePanel('profile')">👤<span>Profile</span></button>
+</div>
+
+<!-- QUIZ MODAL -->
 <div id="quizModal" class="modal">
   <div class="glass box">
     <div class="row">
-      <div>
-        <h2 id="attemptTitle">Quiz Attempt</h2>
-        <div class="small muted" id="attemptSubtitle"></div>
-      </div>
+      <h2 id="attemptTitle">Quiz Attempt</h2>
       <div class="pill">⏱ <span id="timer">00:00</span></div>
     </div>
     <div id="quizAttemptArea"></div>
@@ -606,7 +1049,7 @@
   </div>
 </div>
 
-<!-- SCORE -->
+<!-- SCORE MODAL -->
 <div id="scoreModal" class="modal">
   <div class="glass box center" style="text-align:center">
     <h1>🎉 Quiz Submitted</h1>
@@ -619,24 +1062,16 @@
   </div>
 </div>
 
-<!-- EDIT QUIZ -->
+<!-- EDIT MODAL -->
 <div id="editModal" class="modal">
   <div class="glass box">
     <h2>Edit Quiz</h2>
-    <input id="editQuizTitle" placeholder="Quiz Title">
+    <input id="editQuizTitle">
     <div class="row">
       <select id="editQuizSubject"></select>
-      <input id="editQuizDuration" type="number" min="1" placeholder="Duration">
+      <input id="editQuizDuration" type="number" min="1">
     </div>
-    <div class="row">
-      <input id="editQuizDue" type="date">
-      <select id="editQuizDifficulty">
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-      </select>
-    </div>
-    <input type="file" id="editQuizThumbUpload" accept="image/*">
+    <input id="editQuizDue" type="date">
     <textarea id="editQuizQuestions"></textarea>
     <div class="row">
       <button class="btn alt" onclick="closeModal('editModal')">Cancel</button>
@@ -645,85 +1080,73 @@
   </div>
 </div>
 
-<!-- QUESTION EDITOR -->
-<div id="questionEditorModal" class="modal">
-  <div class="glass box">
-    <h2>Question-by-Question Editor</h2>
-    <div id="questionEditorList" class="builderQList"></div>
-    <div class="row" style="margin-top:16px">
-      <button class="btn alt" onclick="closeModal('questionEditorModal')">Close</button>
-      <button class="btn good" onclick="syncEditorToBuilder()">Apply to Builder</button>
-    </div>
-  </div>
-</div>
-
 <script>
 /* =========================
-   DATA / STATE
+   DATABASE
 ========================= */
-const dbKey='quiz_master_ultra_v3';
+const dbKey='quiz_nexus_elite_db';
 const sampleSubjects=['Data Structures','DBMS','Operating Systems','Computer Networks','Theory of Computation'];
 
 const sampleQuestions={
   'Data Structures':[
     {q:'Which data structure follows LIFO?',options:['Stack','Queue','Tree','Graph'],answer:0},
-    {q:'Which traversal uses root-left-right?',options:['Postorder','Inorder','Preorder','Level order'],answer:2},
-    {q:'Which structure is used in BFS?',options:['Stack','Queue','Heap','Tree'],answer:1},
-    {q:'Which sort is divide and conquer?',options:['Bubble','Selection','Merge','Insertion'],answer:2},
-    {q:'Which operation adds at rear in queue?',options:['Pop','Push','Enqueue','InsertFront'],answer:2},
-    {q:'Binary search needs?',options:['Unsorted array','Sorted array','Linked list only','Graph'],answer:1},
-    {q:'Top of stack refers to?',options:['First inserted','Last inserted','Middle','None'],answer:1},
-    {q:'AVL tree is?',options:['Balanced BST','Heap','Queue','Graph'],answer:0},
-    {q:'Hashing is mainly used for?',options:['Searching','Sorting only','Traversal','Printing'],answer:0},
-    {q:'Circular queue avoids?',options:['Traversal','Memory wastage','Sorting','Overflow always'],answer:1},
+    {q:'Which structure uses FIFO?',options:['Stack','Queue','Heap','Graph'],answer:1},
+    {q:'Which traversal uses queue?',options:['BFS','DFS','Inorder','Postorder'],answer:0},
+    {q:'Which structure stores key-value pairs?',options:['Hash Table','Queue','Stack','Tree'],answer:0},
+    {q:'Circular queue avoids?',options:['Overflow wastage','Sorting','Traversal','Hashing'],answer:0},
+    {q:'Which is non-linear?',options:['Array','Linked List','Tree','Queue'],answer:2},
+    {q:'Push and pop are operations of?',options:['Stack','Queue','Tree','Graph'],answer:0},
+    {q:'Binary tree max children?',options:['1','2','3','4'],answer:1},
+    {q:'Which search is best on sorted array?',options:['DFS','BFS','Binary Search','Linear Queue'],answer:2},
+    {q:'Linked list uses?',options:['Pointers','Compiler','Cache','Protocol'],answer:0}
   ],
   'DBMS':[
-    {q:'Which is a normal form?',options:['1NF','TCP','DFS','ARP'],answer:0},
-    {q:'SQL stands for?',options:['Structured Query Language','Simple Query Link','Sequential Queue Logic','None'],answer:0},
-    {q:'Primary key is?',options:['Duplicate field','Unique identifier','Nullable field','Index only'],answer:1},
-    {q:'ACID belongs to?',options:['Transactions','Indexes','Views','Keys'],answer:0},
-    {q:'Which command removes table?',options:['DROP','ALTER','UPDATE','SELECT'],answer:0},
-    {q:'JOIN is used to?',options:['Delete rows','Combine tables','Sort values','Create DB'],answer:1},
-    {q:'ER model is for?',options:['Design','Encryption','Compilation','Networking'],answer:0},
-    {q:'Deadlock can happen in?',options:['Concurrency','Normalization','Indexing','Views'],answer:0},
-    {q:'Which is DDL?',options:['SELECT','INSERT','CREATE','COMMIT'],answer:2},
-    {q:'Foreign key ensures?',options:['Sorting','Referential integrity','Backup','Compression'],answer:1},
+    {q:'1NF removes?',options:['Repeating groups','Partial dependency','Transitive dependency','Joins'],answer:0},
+    {q:'SQL stands for?',options:['Structured Query Language','Simple Queue Logic','System Query Logic','Stored Query Language'],answer:0},
+    {q:'Primary key is?',options:['Unique identifier','Duplicate value','Null value','Transaction'],answer:0},
+    {q:'Which command removes table?',options:['DROP','SELECT','UPDATE','GRANT'],answer:0},
+    {q:'ACID property A means?',options:['Atomicity','Accuracy','Aggregation','Association'],answer:0},
+    {q:'Which join returns common rows?',options:['Inner Join','Outer Join','Cross Join','Self Join'],answer:0},
+    {q:'Foreign key creates?',options:['Relationship','Loop','Sorting','Normalization'],answer:0},
+    {q:'Deadlock occurs in?',options:['Concurrency','Indexing','ER Model','Projection'],answer:0},
+    {q:'BCNF is a?',options:['Normal form','SQL command','Transaction','Language'],answer:0},
+    {q:'Rollback is used in?',options:['Transactions','Views','Keys','Relations'],answer:0}
   ],
   'Operating Systems':[
-    {q:'CPU scheduling decides?',options:['Which process runs','How files store','Network route','RAM size'],answer:0},
-    {q:'Which is a process state?',options:['Ready','Sorted','Joined','Linked'],answer:0},
-    {q:'Deadlock needs?',options:['Mutual exclusion','Sorting','Searching','Compilation'],answer:0},
-    {q:'Paging avoids?',options:['Fragmentation partly','Scheduling','Threads','Signals'],answer:0},
-    {q:'Semaphore is used for?',options:['Synchronization','Compression','Graphics','Sorting'],answer:0},
-    {q:'Round Robin uses?',options:['Time quantum','Hashing','Paging only','Trees'],answer:0},
-    {q:'Kernel is?',options:['Core of OS','Virus','Driver only','App'],answer:0},
-    {q:'Virtual memory uses?',options:['Disk as extension','Extra CPU','GPU','Cache only'],answer:0},
-    {q:'Thrashing relates to?',options:['Excess paging','Printing','Threading','Dead code'],answer:0},
-    {q:'Fork creates?',options:['Child process','Semaphore','Page','Interrupt'],answer:0},
+    {q:'CPU scheduling belongs to?',options:['OS','DBMS','CN','TOC'],answer:0},
+    {q:'Which is a process state?',options:['Ready','Joined','Closed','Packed'],answer:0},
+    {q:'Round Robin uses?',options:['Time Quantum','Hashing','Indexing','Recursion'],answer:0},
+    {q:'Deadlock needs?',options:['Mutual Exclusion','Sorting','Normalization','Parsing'],answer:0},
+    {q:'Virtual memory uses?',options:['Paging','Token Ring','DFS','Compilation'],answer:0},
+    {q:'Semaphore is for?',options:['Synchronization','Encryption','Compression','Booting'],answer:0},
+    {q:'Kernel is?',options:['Core of OS','Compiler','Router','IDE'],answer:0},
+    {q:'Thrashing occurs due to?',options:['Excessive paging','Compilation','Linking','Caching'],answer:0},
+    {q:'FIFO page replacement removes?',options:['Oldest page','Newest page','Largest page','Null page'],answer:0},
+    {q:'System call is used to?',options:['Request OS service','Draw graph','Compile code','Create SQL'],answer:0}
   ],
   'Computer Networks':[
-    {q:'Router forwards?',options:['Packets','Variables','Processes','Threads'],answer:0},
-    {q:'HTTP works on?',options:['Application layer','Network layer','Transport only','Physical'],answer:0},
-    {q:'IP address identifies?',options:['Device','Compiler','File','Thread'],answer:0},
-    {q:'Which device connects LANs?',options:['Router','Monitor','Keyboard','Compiler'],answer:0},
-    {q:'TCP is?',options:['Reliable protocol','Compiler','Database','Algorithm'],answer:0},
-    {q:'DNS resolves?',options:['Domain names','Passwords','Ports','Packets'],answer:0},
-    {q:'MAC address belongs to?',options:['NIC','Browser','CPU','RAM'],answer:0},
-    {q:'OSI has how many layers?',options:['7','5','4','9'],answer:0},
-    {q:'Switch works mainly at?',options:['Data link','Application','Session','Presentation'],answer:0},
-    {q:'Ping uses?',options:['ICMP','HTTP','SMTP','FTP'],answer:0},
+    {q:'Which device forwards packets?',options:['Router','Compiler','Kernel','Stack'],answer:0},
+    {q:'OSI has how many layers?',options:['5','6','7','8'],answer:2},
+    {q:'IP address identifies?',options:['Host','Queue','Table','Compiler'],answer:0},
+    {q:'HTTP is?',options:['Protocol','Process','Memory','Compiler'],answer:0},
+    {q:'Switch works mainly at?',options:['Data Link Layer','Transport Layer','Session Layer','Application Layer'],answer:0},
+    {q:'DNS converts?',options:['Names to IP','IP to SQL','SQL to HTML','HTML to RAM'],answer:0},
+    {q:'TCP is?',options:['Connection-oriented','Connectionless','Compiler','Topology'],answer:0},
+    {q:'Ping uses?',options:['ICMP','ARP only','HTTP','SMTP'],answer:0},
+    {q:'MAC address belongs to?',options:['NIC','Browser','CPU','Kernel'],answer:0},
+    {q:'Topology means?',options:['Network layout','OS process','DB schema','Parsing tree'],answer:0}
   ],
   'Theory of Computation':[
-    {q:'DFA stands for?',options:['Deterministic Finite Automata','Dynamic File Access','Direct Fast Array','None'],answer:0},
-    {q:'CFG means?',options:['Context Free Grammar','Common File Graph','Core Function Group','None'],answer:0},
-    {q:'PDA recognizes?',options:['CFL','Regular expressions only','HTML','SQL'],answer:0},
-    {q:'TM means?',options:['Turing Machine','Tree Model','Token Machine','Type Mapper'],answer:0},
-    {q:'Regular languages are accepted by?',options:['FA','PDA','TM only','DBMS'],answer:0},
-    {q:'CNF is related to?',options:['Grammar form','Network form','CPU form','Storage'],answer:0},
-    {q:'Halting problem is?',options:['Undecidable','Sortable','Searchable','Balanced'],answer:0},
-    {q:'NFA differs from DFA by?',options:['Multiple transitions','No states','No alphabet','No accept'],answer:0},
-    {q:'Recursively enumerable language accepted by?',options:['TM','Queue','Stack','Heap'],answer:0},
-    {q:'P vs NP belongs to?',options:['Complexity theory','OS','DBMS','CN'],answer:0},
+    {q:'DFA stands for?',options:['Deterministic Finite Automata','Data File Access','Dual Formal Analysis','Deterministic File Array'],answer:0},
+    {q:'CFG means?',options:['Context Free Grammar','Computer File Graph','Central Flow Group','Control Form Grammar'],answer:0},
+    {q:'TM stands for?',options:['Turing Machine','Token Machine','Tree Model','Table Manager'],answer:0},
+    {q:'PDA uses?',options:['Stack','Queue','Heap','Array'],answer:0},
+    {q:'Regular language is accepted by?',options:['Finite Automata','TM only','Compiler','Router'],answer:0},
+    {q:'CNF stands for?',options:['Chomsky Normal Form','Central Network Format','Common Node Form','Context Node Format'],answer:0},
+    {q:'Ambiguous grammar has?',options:['More than one parse tree','One token','One variable','No language'],answer:0},
+    {q:'Halting problem is?',options:['Undecidable','Regular','Sorted','Networked'],answer:0},
+    {q:'NP means?',options:['Nondeterministic Polynomial time','Normal Process','Node Parsing','Non Programming'],answer:0},
+    {q:'Recursively enumerable language is accepted by?',options:['Turing Machine','Queue','Stack','Router'],answer:0}
   ]
 };
 
@@ -735,33 +1158,50 @@ const defaultState={
   ],
   quizzes:[],
   results:[],
-  announcements:['Welcome to Quiz Master!','Weekly challenge is now live!'],
+  announcements:['Welcome to Quiz Nexus Elite!','Weekly challenge is now live!'],
   current:null,
   theme:'dark',
   avatars:{},
   sound:true,
   attendance:{},
-  badges:{},
-  quizThumbs:{}
+  badges:{}
 };
 
 let state=JSON.parse(localStorage.getItem(dbKey))||structuredClone(defaultState);
-let currentQuiz=null,timerInt=null,timeLeft=0,editingQuizId=null,lastResultId=null;
-let chart1=null,chart2=null,chart3=null;
-let builderQuestions=[];
+
+let currentQuiz=null;
+let timerInt=null;
+let timeLeft=0;
+let editingQuizId=null;
+let lastResultId=null;
+let chartRef=null;
+let barChartRef=null;
 
 /* =========================
    HELPERS
 ========================= */
-const qs=s=>document.querySelector(s), qsa=s=>document.querySelectorAll(s);
+const qs=s=>document.querySelector(s);
+const qsa=s=>document.querySelectorAll(s);
+
 function save(){localStorage.setItem(dbKey,JSON.stringify(state))}
-function playSound(id='clickSound'){if(state.sound){const a=document.getElementById(id);if(a){a.currentTime=0;a.play().catch(()=>{})}}}
-function toast(msg){const d=document.createElement('div');d.className='toast glass';d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2500)}
+function playSound(id='clickSound'){
+  if(state.sound){
+    const a=document.getElementById(id);
+    if(a){a.currentTime=0;a.play().catch(()=>{})}
+  }
+}
+function toast(msg){
+  const d=document.createElement('div');
+  d.className='toast glass';
+  d.textContent=msg;
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2500);
+}
 function showPage(id){
   qsa('.page').forEach(p=>p.classList.remove('active'));
-  const el=qs('#'+id); if(el) el.classList.add('active');
-  if(id==='dashboard') renderDashboard();
-  window.scrollTo({top:0,behavior:'smooth'});
+  const el=qs('#'+id);
+  if(el)el.classList.add('active');
+  if(id==='dashboard')renderDashboard();
 }
 function switchAuth(type){
   qs('#loginForm').classList.toggle('hidden',type!=='login');
@@ -773,11 +1213,13 @@ function toggleTheme(){
   document.body.classList.toggle('light');
   state.theme=document.body.classList.contains('light')?'light':'dark';
   save();
-  if(qs('#dashboard').classList.contains('active')) drawCharts();
+  if(state.current) setTimeout(drawCharts,150);
 }
-function toggleSound(){state.sound=!state.sound;save();toast('Sound '+(state.sound?'ON':'OFF'))}
-function closeModal(id){qs('#'+id).classList.remove('show');clearInterval(timerInt)}
-function formatDate(d){return new Date(d).toLocaleString()}
+function toggleSound(){
+  state.sound=!state.sound;
+  save();
+  toast('Sound '+(state.sound?'ON':'OFF'));
+}
 
 /* =========================
    AUTH
@@ -786,146 +1228,162 @@ function login(){
   const email=qs('#loginEmail').value.trim();
   const password=qs('#loginPassword').value.trim();
   const role=qs('#loginRole').value;
+
   const u=state.users.find(x=>x.email===email&&x.password===password&&x.role===role);
-  if(!u) return toast('Invalid login');
-  state.current=u; markAttendance(); save(); showPage('dashboard');
+  if(!u)return toast('Invalid login');
+
+  state.current=u;
+  markAttendance();
+  save();
+  showPage('dashboard');
 }
+
 function register(){
-  const u={name:qs('#regName').value.trim(),email:qs('#regEmail').value.trim(),password:qs('#regPassword').value.trim(),role:qs('#regRole').value};
-  if(!u.name||!u.email||!u.password) return toast('Fill all fields');
-  if(state.users.some(x=>x.email===u.email)) return toast('Email already exists');
-  state.users.push(u); save(); toast('Registered successfully'); switchAuth('login');
+  const u={
+    name:qs('#regName').value.trim(),
+    email:qs('#regEmail').value.trim(),
+    password:qs('#regPassword').value.trim(),
+    role:qs('#regRole').value
+  };
+  if(!u.name||!u.email||!u.password)return toast('Fill all fields');
+  if(state.users.some(x=>x.email===u.email))return toast('Email already exists');
+
+  state.users.push(u);
+  save();
+  toast('Registered successfully');
+  switchAuth('login');
 }
-function logout(){state.current=null;save();showPage('home')}
 
-/* =========================
-   SIDEBAR / DRAWER
-========================= */
-function buildSidebarMenu(){
-  const u=state.current;
-  const avatar=state.avatars[u.email]||('https://ui-avatars.com/api/?name='+encodeURIComponent(u.name));
-  const html=`
-    <div class="brand">
-      <div class="logo">Q</div>
-      <div>
-        <div id="roleTitle" style="font-weight:900">${u.role.toUpperCase()} Dashboard</div>
-        <div class="small muted" id="userLabel">${u.name}</div>
-      </div>
-    </div>
-    <div class="center" style="margin:18px 0"><img id="avatarPreview" class="avatar" src="${avatar}" alt="avatar"></div>
-
-    <button class="sidebtn active" onclick="openPanel('overview',this)">🏠 Overview</button>
-    <button class="sidebtn ${u.role!=='student'?'hidden':''}" onclick="openPanel('studentQuiz',this)">📝 View / Attempt Quiz</button>
-    <button class="sidebtn ${u.role!=='student'?'hidden':''}" onclick="openPanel('studentResults',this)">📄 Results</button>
-    <button class="sidebtn ${u.role!=='student'?'hidden':''}" onclick="openPanel('upcoming',this)">📅 Upcoming Quizzes</button>
-    <button class="sidebtn" onclick="openPanel('leaderboard',this)">🏆 Leaderboard</button>
-
-    <button class="sidebtn ${u.role!=='staff'?'hidden':''}" onclick="openPanel('staffBuilder',this)">🛠 Create Quiz</button>
-    <button class="sidebtn ${u.role!=='staff'?'hidden':''}" onclick="openPanel('manageQuiz',this)">🧩 Manage Quiz</button>
-    <button class="sidebtn ${u.role!=='staff'?'hidden':''}" onclick="openPanel('viewStudentResults',this)">📊 Student Results</button>
-
-    <button class="sidebtn ${u.role!=='admin'?'hidden':''}" onclick="openPanel('adminManage',this)">👥 Manage Users</button>
-    <button class="sidebtn ${u.role!=='admin'?'hidden':''}" onclick="openPanel('adminQuizManage',this)">📚 Manage Quizzes</button>
-    <button class="sidebtn ${u.role!=='admin'?'hidden':''}" onclick="openPanel('announcements',this)">📢 Announcements</button>
-
-    <button class="sidebtn" onclick="openPanel('profile',this)">👤 Profile</button>
-    <button class="sidebtn" onclick="openPanel('calendar',this)">🗓 Calendar</button>
-    <button class="sidebtn" onclick="openPanel('analytics',this)">📈 Analytics</button>
-    <button class="sidebtn" onclick="openPanel('settings',this)">⚙️ Settings</button>
-
-    <div class="row" style="margin-top:14px">
-      <button class="btn alt" onclick="toggleTheme()">Theme</button>
-      <button class="btn bad" onclick="logout()">Logout</button>
-    </div>
-  `;
-  qs('#sidebarMenu').innerHTML=html;
-  qs('#drawerMenu').innerHTML=html;
-  qs('#mobileRoleTitle').textContent=u.role.toUpperCase()+' Dashboard';
-  qs('#mobileUserLabel').textContent=u.name;
-}
-function toggleDrawer(){qs('#drawer').classList.toggle('show')}
-function drawerBgClose(e){if(e.target.id==='drawer') toggleDrawer();}
-
-function openPanel(id,el){
-  qsa('.panel').forEach(p=>p.classList.add('hidden'));
-  qs('#'+id).classList.remove('hidden');
-
-  qsa('.sidebtn').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
-
-  if(id==='studentQuiz') renderStudentQuizzes();
-  if(id==='studentResults') renderStudentResults();
-  if(id==='upcoming') renderUpcoming();
-  if(id==='manageQuiz') renderManageQuiz();
-  if(id==='viewStudentResults') renderAllResults();
-  if(id==='adminManage') renderUsers();
-  if(id==='adminQuizManage') renderAdminQuizzes();
-  if(id==='announcements') renderAnnouncements();
-  if(id==='profile') renderProfile();
-  if(id==='calendar') renderCalendar();
-  if(id==='analytics') drawCharts();
-  if(id==='leaderboard') renderLeaderboard();
-  qs('#drawer').classList.remove('show');
+function logout(){
+  state.current=null;
+  save();
+  showPage('home');
 }
 
 /* =========================
    DASHBOARD
 ========================= */
+function openPanel(id,el){
+  qsa('.panel').forEach(p=>p.classList.add('hidden'));
+  const panel=qs('#'+id);
+  if(panel)panel.classList.remove('hidden');
+
+  qsa('.sidebtn').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+
+  if(id==='studentQuiz')renderStudentQuizzes();
+  if(id==='studentResults')renderStudentResults();
+  if(id==='upcoming')renderUpcoming();
+  if(id==='manageQuiz')renderManageQuiz();
+  if(id==='viewStudentResults')renderAllResults();
+  if(id==='adminManage')renderUsers();
+  if(id==='adminQuizManage')renderAdminQuizzes();
+  if(id==='announcements')renderAnnouncements();
+  if(id==='profile')renderProfile();
+  if(id==='calendar')renderCalendar();
+  if(id==='analytics')drawCharts();
+  if(id==='leaderboard')renderLeaderboard();
+}
+
+function openMobilePanel(id){
+  if(!state.current) return;
+  showPage('dashboard');
+  openPanel(id);
+}
+
 function renderDashboard(){
   const u=state.current;
-  if(!u) return showPage('auth');
-  buildSidebarMenu();
-  fillSubjects();
+  if(!u)return showPage('auth');
+
+  qs('#roleTitle').textContent=u.role.toUpperCase()+' Dashboard';
+  qs('#userLabel').textContent=u.name;
+
+  qsa('.studentOnly').forEach(x=>x.classList.toggle('hidden',u.role!=='student'));
+  qsa('.staffOnly').forEach(x=>x.classList.toggle('hidden',u.role!=='staff'));
+  qsa('.adminOnly').forEach(x=>x.classList.toggle('hidden',u.role!=='admin'));
+
+  qs('#avatarPreview').src=state.avatars[u.email]||('https://ui-avatars.com/api/?name='+encodeURIComponent(u.name));
   qs('#statQuiz').textContent=state.quizzes.length;
   qs('#statResults').textContent=state.results.length;
   qs('#statAttendance').textContent=((state.attendance[u.email]?.length||0)*10)+'%';
   qs('#statBadges').textContent=(state.badges[u.email]||[]).length;
   qs('#latestAnnouncement').textContent=state.announcements[0]||'No announcements';
+
   generateAISuggestion();
-  renderOverviewRings();
-  openPanel('overview', document.querySelector('#desktopSidebar .sidebtn'));
+  fillSubjects();
+  renderOverviewCards();
+  renderProgressRings();
+  openPanel('overview',document.querySelector('.sidebtn'));
 }
-function renderOverviewRings(){
-  const u=state.current;
-  const myResults=state.results.filter(r=>r.email===u.email);
-  const attempted=myResults.length;
-  const avg=attempted?Math.round(myResults.reduce((a,b)=>a+(b.score/b.total*100),0)/attempted):0;
-  const attendance=(state.attendance[u.email]?.length||0)*10;
-  qs('#overviewRings').innerHTML=
-    ringCard('Average Score',avg)+ringCard('Attendance',attendance)+ringCard('Attempted',Math.min(attempted*10,100));
-}
-function ringCard(label,val){
-  const c=2*Math.PI*44;
-  const off=c-(val/100)*c;
-  return `
-    <div class="glass ringCard">
-      <svg class="ringSvg" viewBox="0 0 120 120">
-        <defs>
-          <linearGradient id="gradRing" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#00c2ff"></stop>
-            <stop offset="100%" stop-color="#6b5cff"></stop>
-          </linearGradient>
-        </defs>
-        <circle class="ringBg" cx="60" cy="60" r="44"></circle>
-        <circle class="ringFg" cx="60" cy="60" r="44" stroke-dasharray="${c}" stroke-dashoffset="${off}"></circle>
-        <text x="60" y="67" text-anchor="middle" fill="currentColor" font-size="22" font-weight="900" transform="rotate(90 60 60)">${val}%</text>
-      </svg>
-      <div style="font-weight:800;margin-top:8px">${label}</div>
-    </div>
-  `;
-}
+
 function fillSubjects(){
-  ['quizSubject','bankSubject','editQuizSubject','quizFilter','manageFilter'].forEach(id=>{
-    const el=qs('#'+id); if(!el) return;
+  ['quizSubject','bankSubject','editQuizSubject','quizFilter'].forEach(id=>{
+    const el=qs('#'+id);
+    if(!el)return;
     const keep=el.value;
-    el.innerHTML=(id==='quizFilter'||id==='manageFilter')?'<option value="all">All Subjects</option>':'';
+    el.innerHTML=id==='quizFilter'?'<option value="all">All Subjects</option>':'';
     sampleSubjects.forEach(s=>el.innerHTML+=`<option value="${s}">${s}</option>`);
-    if(keep) el.value=keep;
+    if(keep)el.value=keep;
   });
 }
 
 /* =========================
-   STAFF QUIZ BUILDER
+   OVERVIEW CARDS + RINGS
+========================= */
+function renderOverviewCards(){
+  const u=state.current;
+  const box=qs('#subjectResultCards');
+  const myResults=state.results.filter(r=>r.email===u.email);
+  const map={};
+
+  sampleSubjects.forEach(s=>map[s]={score:0,total:0,attempts:0});
+
+  myResults.forEach(r=>{
+    if(!map[r.subject]) map[r.subject]={score:0,total:0,attempts:0};
+    map[r.subject].score+=r.score;
+    map[r.subject].total+=r.total;
+    map[r.subject].attempts++;
+  });
+
+  box.innerHTML=sampleSubjects.map(s=>{
+    const d=map[s];
+    const percent=d.total?Math.round((d.score/d.total)*100):0;
+    return `
+      <div class="glass subjectCard">
+        <h3>${s}</h3>
+        <p class="muted">Attempts: ${d.attempts}</p>
+        <h1>${percent}%</h1>
+        <p class="small muted">Subject performance</p>
+      </div>
+    `;
+  }).join('');
+}
+
+function setRing(id,percent){
+  const ring=qs('#'+id);
+  if(!ring)return;
+  ring.style.setProperty('--val',`${Math.max(0,Math.min(100,percent))*3.6}deg`);
+  ring.querySelector('span').textContent=percent+'%';
+}
+
+function renderProgressRings(){
+  const u=state.current;
+  const myResults=state.results.filter(r=>r.email===u.email);
+
+  const totalScore=myResults.reduce((a,b)=>a+b.score,0);
+  const totalPossible=myResults.reduce((a,b)=>a+b.total,0);
+  const accuracy=totalPossible?Math.round((totalScore/totalPossible)*100):0;
+
+  const attempts=Math.min(100,myResults.length*15);
+  const performance=Math.min(100,accuracy + Math.min(20,myResults.length*3));
+
+  setRing('ringAccuracy',accuracy);
+  setRing('ringAttempts',attempts);
+  setRing('ringRank',performance);
+}
+
+/* =========================
+   STAFF BUILDER
 ========================= */
 function loadBank(){
   const s=qs('#bankSubject').value;
@@ -933,140 +1391,31 @@ function loadBank(){
 }
 function useBankQuestions(){
   try{
-    builderQuestions=JSON.parse(qs('#bankPreview').value||'[]');
-    syncBuilderUI();
+    const arr=JSON.parse(qs('#bankPreview').value||'[]');
+    qs('#quizQuestions').value=JSON.stringify(arr,null,2);
+    qs('#quizCount').value=arr.length||5;
     toast('Question bank loaded');
-  }catch(e){toast('Invalid bank questions')}
+    renderDragItems(arr);
+  }catch{
+    toast('Invalid bank questions');
+  }
 }
-function clearBuilder(show=true){
-  ['sqQ','sq1','sq2','sq3','sq4'].forEach(id=>qs('#'+id).value='');
-  qs('#sqAns').value='0';
-  if(show) toast('Builder cleared');
-}
-function addSingleQuestion(){
-  const q={
-    q:qs('#sqQ').value.trim(),
-    options:[qs('#sq1').value.trim(),qs('#sq2').value.trim(),qs('#sq3').value.trim(),qs('#sq4').value.trim()],
-    answer:+qs('#sqAns').value
-  };
-  if(!q.q||q.options.some(x=>!x)) return toast('Fill full question');
-  builderQuestions.push(q);
-  syncBuilderUI();
-  clearBuilder(false);
-  toast('Question added');
-}
-function syncBuilderUI(){
-  qs('#builderPreview').value=JSON.stringify(builderQuestions,null,2);
-  qs('#quizQuestions').value=qs('#builderPreview').value;
-  qs('#quizCount').value=builderQuestions.length || 1;
-  renderBuilderDragList();
-}
-function renderBuilderDragList(){
-  const wrap=qs('#builderDragList');
-  wrap.innerHTML=builderQuestions.map((q,i)=>`
-    <div class="dragItem" draggable="true" data-index="${i}">
-      <div class="row">
-        <div style="flex:3">
-          <b>Q${i+1}.</b> ${q.q}
-          <div class="small muted">${q.options.join(' • ')}</div>
-        </div>
-        <div style="flex:0 0 auto" class="row">
-          <button class="btn alt sm" onclick="editBuilderQuestion(${i})">Edit</button>
-          <button class="btn bad sm" onclick="deleteBuilderQuestion(${i})">Delete</button>
-        </div>
-      </div>
+function renderDragItems(arr=[]){
+  const box=qs('#dragItems');
+  box.innerHTML=arr.map((q,i)=>`
+    <div class="dragItem" draggable="true" ondragstart="dragQuestion(event,${i})">
+      <b>Q${i+1}:</b> ${q.q}
     </div>
-  `).join('') || `<div class="muted">No questions added yet.</div>`;
-
-  const items=[...wrap.querySelectorAll('.dragItem')];
-  let dragIndex=null;
-  items.forEach(item=>{
-    item.addEventListener('dragstart',()=>{dragIndex=+item.dataset.index; item.classList.add('dragging')});
-    item.addEventListener('dragend',()=>{item.classList.remove('dragging'); items.forEach(x=>x.classList.remove('ghostOver'))});
-    item.addEventListener('dragover',e=>{e.preventDefault(); item.classList.add('ghostOver')});
-    item.addEventListener('dragleave',()=>item.classList.remove('ghostOver'));
-    item.addEventListener('drop',()=>{
-      const dropIndex=+item.dataset.index;
-      if(dragIndex===null || dragIndex===dropIndex) return;
-      const moved=builderQuestions.splice(dragIndex,1)[0];
-      builderQuestions.splice(dropIndex,0,moved);
-      syncBuilderUI();
-      toast('Question reordered');
-    });
-  });
+  `).join('');
 }
-function editBuilderQuestion(i){
-  const q=builderQuestions[i];
-  qs('#sqQ').value=q.q;
-  qs('#sq1').value=q.options[0];
-  qs('#sq2').value=q.options[1];
-  qs('#sq3').value=q.options[2];
-  qs('#sq4').value=q.options[3];
-  qs('#sqAns').value=q.answer;
-  builderQuestions.splice(i,1);
-  syncBuilderUI();
-  toast('Question loaded into builder');
+function dragQuestion(e,index){
+  e.dataTransfer.setData('text/plain',index);
 }
-function deleteBuilderQuestion(i){
-  builderQuestions.splice(i,1);
-  syncBuilderUI();
-  toast('Question removed');
-}
-function openQuestionEditor(){
-  renderQuestionEditor();
-  qs('#questionEditorModal').classList.add('show');
-}
-function renderQuestionEditor(){
-  qs('#questionEditorList').innerHTML=builderQuestions.map((q,i)=>`
-    <div class="builderMini">
-      <h4>Question ${i+1}</h4>
-      <input data-q="${i}" class="qeQ" value="${escapeHtml(q.q)}">
-      <div class="row" style="margin-top:8px">
-        <input data-q="${i}" data-op="0" class="qeOp" value="${escapeHtml(q.options[0])}">
-        <input data-q="${i}" data-op="1" class="qeOp" value="${escapeHtml(q.options[1])}">
-      </div>
-      <div class="row" style="margin-top:8px">
-        <input data-q="${i}" data-op="2" class="qeOp" value="${escapeHtml(q.options[2])}">
-        <input data-q="${i}" data-op="3" class="qeOp" value="${escapeHtml(q.options[3])}">
-      </div>
-      <select data-q="${i}" class="qeAns" style="margin-top:8px">
-        <option value="0" ${q.answer===0?'selected':''}>Correct: A</option>
-        <option value="1" ${q.answer===1?'selected':''}>Correct: B</option>
-        <option value="2" ${q.answer===2?'selected':''}>Correct: C</option>
-        <option value="3" ${q.answer===3?'selected':''}>Correct: D</option>
-      </select>
-    </div>
-  `).join('') || '<p class="muted">No builder questions yet.</p>';
-}
-function syncEditorToBuilder(){
-  const qInputs=[...document.querySelectorAll('.qeQ')];
-  qInputs.forEach(inp=>{
-    const i=+inp.dataset.q;
-    builderQuestions[i].q=inp.value.trim();
-  });
-  [...document.querySelectorAll('.qeOp')].forEach(inp=>{
-    const i=+inp.dataset.q, op=+inp.dataset.op;
-    builderQuestions[i].options[op]=inp.value.trim();
-  });
-  [...document.querySelectorAll('.qeAns')].forEach(sel=>{
-    const i=+sel.dataset.q;
-    builderQuestions[i].answer=+sel.value;
-  });
-  syncBuilderUI();
-  closeModal('questionEditorModal');
-  toast('Editor changes applied');
-}
-
-/* =========================
-   QUIZ CRUD
-========================= */
-function getUploadedThumb(inputId, cb){
-  const file=qs('#'+inputId).files[0];
-  if(!file) return cb(null);
-  if(!file.type.startsWith('image/')) return toast('Upload image only');
-  const reader=new FileReader();
-  reader.onload=()=>cb(reader.result);
-  reader.readAsDataURL(file);
+function allowDrop(e){e.preventDefault()}
+function dropQuestion(e){
+  e.preventDefault();
+  const idx=e.dataTransfer.getData('text/plain');
+  toast('Question moved: '+(parseInt(idx)+1));
 }
 function saveQuiz(){
   try{
@@ -1075,224 +1424,184 @@ function saveQuiz(){
     const count=+qs('#quizCount').value;
     const duration=+qs('#quizDuration').value;
     const due=qs('#quizDue').value;
-    const difficulty=qs('#quizDifficulty').value;
-    let questions=JSON.parse(qs('#quizQuestions').value||'[]');
+    let questions=JSON.parse(qs('#quizQuestions').value);
 
-    if(!title || !Array.isArray(questions) || !questions.length) return toast('Enter valid quiz details');
+    if(!title||!Array.isArray(questions)||!questions.length)return toast('Enter valid quiz details');
+
     questions=questions.slice(0,count);
-
-    getUploadedThumb('quizThumbUpload', thumb=>{
-      const id=Date.now();
-      state.quizzes.unshift({id,title,subject,count:questions.length,duration,due,difficulty,questions,createdBy:state.current.email,thumb:thumb||''});
-      save();
-      toast('Quiz created');
-      ['quizTitle','quizQuestions','quizDue'].forEach(id=>qs('#'+id).value='');
-      qs('#quizCount').value=5; qs('#quizDuration').value=5; qs('#quizDifficulty').value='Medium';
-      qs('#quizThumbUpload').value='';
-      builderQuestions=[]; syncBuilderUI();
-      renderManageQuiz(); renderStudentQuizzes();
+    state.quizzes.unshift({
+      id:Date.now(),
+      title,subject,count:questions.length,duration,due,questions,
+      createdBy:state.current.email
     });
-  }catch(e){toast('Invalid JSON questions format')}
+    save();
+    toast('Quiz created successfully');
+    qs('#quizTitle').value='';
+    qs('#quizQuestions').value='';
+    qs('#builderPreview').value='';
+    qs('#dragItems').innerHTML='';
+    renderManageQuiz();
+    renderStudentQuizzes();
+  }catch(e){
+    toast('Invalid JSON questions format');
+  }
 }
+
+function addSingleQuestion(){
+  try{
+    const q={
+      q:qs('#sqQ').value.trim(),
+      options:[
+        qs('#sq1').value.trim(),
+        qs('#sq2').value.trim(),
+        qs('#sq3').value.trim(),
+        qs('#sq4').value.trim()
+      ],
+      answer:+qs('#sqAns').value
+    };
+    if(!q.q||q.options.some(x=>!x))return toast('Fill full question');
+
+    let arr=[];
+    try{arr=JSON.parse(qs('#builderPreview').value||'[]')}catch{}
+    arr.push(q);
+
+    qs('#builderPreview').value=JSON.stringify(arr,null,2);
+    qs('#quizQuestions').value=qs('#builderPreview').value;
+    qs('#quizCount').value=arr.length;
+
+    renderDragItems(arr);
+    clearBuilder(false);
+    toast('Question added');
+  }catch(e){
+    toast('Could not add question');
+  }
+}
+function clearBuilder(show=true){
+  ['sqQ','sq1','sq2','sq3','sq4'].forEach(id=>qs('#'+id).value='');
+  qs('#sqAns').value='0';
+  if(show)toast('Builder cleared');
+}
+
+/* =========================
+   STUDENT QUIZZES
+========================= */
 function renderStudentQuizzes(){
   const box=qs('#studentQuizList');
   const search=(qs('#quizSearch').value||'').toLowerCase();
   const filter=qs('#quizFilter').value;
+
   const list=state.quizzes.filter(q=>
-    (q.title.toLowerCase().includes(search)||q.subject.toLowerCase().includes(search)) &&
-    (filter==='all'||q.subject===filter)
+    (q.title.toLowerCase().includes(search)||q.subject.toLowerCase().includes(search))
+    && (filter==='all'||q.subject===filter)
   );
+
   box.innerHTML=list.map(q=>`
     <div class='glass card'>
-      ${q.thumb?`<img class="thumb" src="${q.thumb}" alt="thumb">`:''}
-      <h3 style="margin-top:${q.thumb?'12px':'0'}">${q.title}</h3>
+      <h3>${q.title}</h3>
       <p class='muted'>${q.subject} • ${q.count} Questions • ⏱ ${q.duration} min</p>
-      <div class="row" style="margin-bottom:10px">
-        <span class="tag ${difficultyClass(q.difficulty)}">${q.difficulty||'Medium'}</span>
-        <span class="pill">Timer Enabled</span>
-      </div>
+      <div class='pill'>Timer Enabled</div>
       <p class='small muted'>Due: ${q.due||'No due date'}</p>
       <button class='btn' onclick='startQuiz(${q.id})'>Attempt Quiz</button>
     </div>
   `).join('')||'<p class="muted">No quizzes found.</p>';
 }
-function renderManageQuiz(){
-  const box=qs('#manageQuizList');
-  const search=(qs('#manageSearch').value||'').toLowerCase();
-  const sub=qs('#manageFilter').value;
-  const diff=qs('#manageDifficultyFilter').value;
-  const list=(state.current.role==='staff'?state.quizzes.filter(q=>q.createdBy===state.current.email):state.quizzes)
-    .filter(q=>
-      (q.title.toLowerCase().includes(search)||q.subject.toLowerCase().includes(search)||(q.difficulty||'').toLowerCase().includes(search)) &&
-      (sub==='all'||q.subject===sub) &&
-      (diff==='all'||(q.difficulty||'Medium')===diff)
-    );
 
-  box.innerHTML=list.map(q=>`
-    <div class='glass card' style='margin-bottom:16px'>
-      <div class="split">
-        <div>
-          ${q.thumb?`<img class="thumb" src="${q.thumb}" alt="thumb">`:''}
-        </div>
-        <div>
-          <h3>${q.title}</h3>
-          <p class='muted'>${q.subject} • ${q.count} Questions • ⏱ ${q.duration} min</p>
-          <div class="row" style="margin-bottom:10px">
-            <span class="tag ${difficultyClass(q.difficulty)}">${q.difficulty||'Medium'}</span>
-            <span class="pill">Created by ${q.createdBy}</span>
-          </div>
-          <p class='small muted'>Due: ${q.due||'No due date'}</p>
-          <div class='row'>
-            <button class='btn alt' onclick='openEditQuiz(${q.id})'>Edit</button>
-            <button class='btn bad' onclick='deleteQuiz(${q.id})'>Delete</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('')||'<p class="muted">No quizzes available.</p>';
-}
-function difficultyClass(d){
-  if(d==='Easy') return 'easy';
-  if(d==='Hard') return 'hard';
-  return 'medium';
-}
-function openEditQuiz(id){
-  const q=state.quizzes.find(x=>x.id===id);
-  if(!q) return;
-  editingQuizId=id;
-  qs('#editQuizTitle').value=q.title;
-  qs('#editQuizSubject').value=q.subject;
-  qs('#editQuizDuration').value=q.duration;
-  qs('#editQuizDue').value=q.due||'';
-  qs('#editQuizDifficulty').value=q.difficulty||'Medium';
-  qs('#editQuizQuestions').value=JSON.stringify(q.questions,null,2);
-  qs('#editQuizThumbUpload').value='';
-  qs('#editModal').classList.add('show');
-}
-function updateQuiz(){
-  try{
-    const q=state.quizzes.find(x=>x.id===editingQuizId);
-    if(!q) return toast('Quiz not found');
-
-    const applyUpdate=(thumb)=>{
-      q.title=qs('#editQuizTitle').value.trim();
-      q.subject=qs('#editQuizSubject').value;
-      q.duration=+qs('#editQuizDuration').value;
-      q.due=qs('#editQuizDue').value;
-      q.difficulty=qs('#editQuizDifficulty').value;
-      q.questions=JSON.parse(qs('#editQuizQuestions').value);
-      q.count=q.questions.length;
-      if(thumb) q.thumb=thumb;
-      save();
-      closeModal('editModal');
-      renderManageQuiz();
-      renderStudentQuizzes();
-      renderAdminQuizzes();
-      toast('Quiz updated');
-    };
-
-    getUploadedThumb('editQuizThumbUpload', applyUpdate);
-  }catch(e){toast('Invalid quiz JSON')}
-}
-function deleteQuiz(id){
-  if(!confirm('Delete this quiz?')) return;
-  state.quizzes=state.quizzes.filter(q=>q.id!==id);
-  save();
-  renderManageQuiz();
-  renderStudentQuizzes();
-  renderAdminQuizzes();
-  toast('Quiz deleted');
-}
-
-/* =========================
-   QUIZ ATTEMPT
-========================= */
 function startQuiz(id){
   const q=state.quizzes.find(x=>x.id===id);
-  if(!q) return;
+  if(!q)return;
+
   currentQuiz={...q,answers:Array(q.questions.length).fill(null)};
   currentQuiz.questions=[...q.questions].sort(()=>Math.random()-.5);
+
   qs('#attemptTitle').textContent=q.title+' ('+q.subject+')';
-  qs('#attemptSubtitle').textContent=`Difficulty: ${q.difficulty||'Medium'} • ${q.count} Questions`;
   timeLeft=q.duration*60;
   renderAttempt();
+
   qs('#quizModal').classList.add('show');
   clearInterval(timerInt);
+
   timerInt=setInterval(()=>{
     timeLeft--;
     renderTimer();
-    if(timeLeft<=0) submitQuiz();
+    if(timeLeft<=0)submitQuiz();
   },1000);
+
   renderTimer();
 }
+
 function renderAttempt(){
   const box=qs('#quizAttemptArea');
   box.innerHTML=currentQuiz.questions.map((qq,i)=>`
     <div class='glass quizQ'>
       <h3>Q${i+1}. ${qq.q}</h3>
-      ${qq.options.map((op,j)=>`<div class='option ${currentQuiz.answers[i]===j?'selected':''}' onclick='selectOption(${i},${j})'>${op}</div>`).join('')}
+      ${qq.options.map((op,j)=>`
+        <div class='option ${currentQuiz.answers[i]===j?'selected':''}' onclick='selectOption(${i},${j})'>${op}</div>
+      `).join('')}
     </div>
   `).join('');
 }
-function selectOption(i,j){currentQuiz.answers[i]=j;renderAttempt()}
+
+function selectOption(i,j){
+  currentQuiz.answers[i]=j;
+  renderAttempt();
+}
+
 function renderTimer(){
   const m=String(Math.floor(timeLeft/60)).padStart(2,'0');
   const s=String(Math.max(0,timeLeft%60)).padStart(2,'0');
   qs('#timer').textContent=`${m}:${s}`;
 }
+
 function submitQuiz(){
-  if(!currentQuiz) return;
+  if(!currentQuiz)return;
   clearInterval(timerInt);
+
   let score=0;
-  currentQuiz.questions.forEach((q,i)=>{if(currentQuiz.answers[i]===q.answer) score++});
+  currentQuiz.questions.forEach((q,i)=>{
+    if(currentQuiz.answers[i]===q.answer)score++;
+  });
+
   const res={
     id:Date.now(),
     student:state.current.name,
     email:state.current.email,
     title:currentQuiz.title,
     subject:currentQuiz.subject,
-    difficulty:currentQuiz.difficulty||'Medium',
     score,
     total:currentQuiz.questions.length,
     date:new Date().toLocaleString()
   };
+
   state.results.unshift(res);
   lastResultId=res.id;
   awardBadges(res);
   save();
+
   playSound('submitSound');
   closeModal('quizModal');
+
   qs('#scoreText').textContent=`You scored ${score} / ${currentQuiz.questions.length}`;
   qs('#resultPdfBtn').onclick=()=>exportPDF(lastResultId);
   qs('#scoreModal').classList.add('show');
+
   burstConfetti();
   renderStudentResults();
+  renderOverviewCards();
+  renderProgressRings();
   currentQuiz=null;
 }
 
 /* =========================
-   RESULTS / LEADERBOARD
+   RESULTS
 ========================= */
 function renderStudentResults(){
   const box=qs('#studentResultsList');
-  const cards=qs('#subjectResultCards');
   const list=state.results.filter(r=>r.email===state.current.email);
-
-  const bySub={};
-  list.forEach(r=>{
-    if(!bySub[r.subject]) bySub[r.subject]={score:0,total:0,count:0};
-    bySub[r.subject].score+=r.score; bySub[r.subject].total+=r.total; bySub[r.subject].count++;
-  });
-
-  cards.innerHTML=Object.entries(bySub).map(([sub,v])=>{
-    const pct=Math.round(v.score/v.total*100);
-    return `<div class="glass subjectCard"><div class="muted">${sub}</div><div class="subjectScore">${pct}%</div><div class="small muted">${v.count} attempt(s)</div></div>`;
-  }).join('') || '<p class="muted">No subject results yet.</p>';
 
   box.innerHTML=list.map(r=>`
     <div class='glass card'>
       <h3>${r.title}</h3>
-      <p class='muted'>${r.subject} • ${r.difficulty||'Medium'} • Score: ${r.score}/${r.total}</p>
+      <p class='muted'>${r.subject} • Score: ${r.score}/${r.total}</p>
       <p class='small muted'>${r.date}</p>
       <div class='row'>
         <button class='btn alt' onclick='exportPDF(${r.id})'>PDF</button>
@@ -1301,16 +1610,17 @@ function renderStudentResults(){
     </div>
   `).join('')||'<p class="muted">No results yet.</p>';
 }
+
 function renderUpcoming(){
   qs('#upcomingList').innerHTML=state.quizzes.map(q=>`
     <div class='glass card'>
       <h3>${q.title}</h3>
       <p class='muted'>${q.subject}</p>
-      <div class="row"><span class="tag ${difficultyClass(q.difficulty)}">${q.difficulty||'Medium'}</span></div>
       <p class='small muted'>Due: ${q.due||'No due date'}</p>
     </div>
   `).join('')||'<p class="muted">No upcoming quizzes.</p>';
 }
+
 function renderAllResults(){
   qs('#allResultsList').innerHTML=state.results.map(r=>`
     <div class='glass card'>
@@ -1321,27 +1631,93 @@ function renderAllResults(){
     </div>
   `).join('')||'<p class="muted">No results yet.</p>';
 }
+
+/* =========================
+   LEADERBOARD
+========================= */
 function renderLeaderboard(){
   const ranks={};
-  state.results.forEach(r=>{ranks[r.student]=(ranks[r.student]||0)+r.score});
-  const sorted=Object.entries(ranks).sort((a,b)=>b[1]-a[1]);
-  const top3=sorted.slice(0,3);
-  const rest=sorted.slice(3);
+  state.results.forEach(r=>{
+    if(!ranks[r.student]) ranks[r.student]={points:0,attempts:0};
+    ranks[r.student].points+=r.score;
+    ranks[r.student].attempts++;
+  });
 
-  const podiumHTML=`
-    <div class="leaderPodium">
-      <div class="glass podiumCard podium2">${top3[1]?`<h3>🥈 ${top3[1][0]}</h3><h1>${top3[1][1]}</h1>`:'<h3>🥈 Empty</h3>'}</div>
-      <div class="glass podiumCard podium1">${top3[0]?`<h3>🥇 ${top3[0][0]}</h3><h1>${top3[0][1]}</h1>`:'<h3>🥇 Empty</h3>'}</div>
-      <div class="glass podiumCard podium3">${top3[2]?`<h3>🥉 ${top3[2][0]}</h3><h1>${top3[2][1]}</h1>`:'<h3>🥉 Empty</h3>'}</div>
-    </div>
-  `;
-  const listHTML=rest.map((x,i)=>`
-    <div class='glass card' style='display:flex;justify-content:space-between;align-items:center;transform:perspective(1000px) rotateY(${i%2?'-3':'3'}deg)'>
-      <div><h3>#${i+4} ${x[0]}</h3><p class='muted'>Total points earned</p></div><h1>${x[1]}</h1>
-    </div>
-  `).join('');
+  const sorted=Object.entries(ranks).sort((a,b)=>b[1].points-a[1].points);
 
-  qs('#leaderboardList').innerHTML=(sorted.length?podiumHTML+listHTML:'<p class="muted">No leaderboard data yet.</p>');
+  qs('#leaderboardList').innerHTML=sorted.map((x,i)=>`
+    <div class='glass card' style='display:flex;justify-content:space-between;align-items:center;transform:perspective(1000px) rotateY(${i%2?'-3':'3'}deg); margin-bottom:14px'>
+      <div>
+        <h3>#${i+1} ${x[0]}</h3>
+        <p class='muted'>Attempts: ${x[1].attempts}</p>
+      </div>
+      <div style="text-align:right">
+        <h1>${x[1].points}</h1>
+        <div class="pill">${i===0?'👑 Top Rank':i===1?'🥈 Elite':i===2?'🥉 Rising':'⭐ Challenger'}</div>
+      </div>
+    </div>
+  `).join('')||'<p class="muted">No leaderboard data yet.</p>';
+}
+
+/* =========================
+   MANAGE QUIZ
+========================= */
+function renderManageQuiz(){
+  const box=qs('#manageQuizList');
+  const list=state.current.role==='staff'
+    ?state.quizzes.filter(q=>q.createdBy===state.current.email)
+    :state.quizzes;
+
+  box.innerHTML=list.map(q=>`
+    <div class='glass card'>
+      <h3>${q.title}</h3>
+      <p class='muted'>${q.subject} • ${q.count} Questions</p>
+      <div class='row'>
+        <button class='btn alt' onclick='openEditQuiz(${q.id})'>Edit</button>
+        <button class='btn bad' onclick='deleteQuiz(${q.id})'>Delete</button>
+      </div>
+    </div>
+  `).join('')||'<p class="muted">No quizzes available.</p>';
+}
+
+function openEditQuiz(id){
+  const q=state.quizzes.find(x=>x.id===id);
+  if(!q)return;
+
+  editingQuizId=id;
+  qs('#editQuizTitle').value=q.title;
+  qs('#editQuizSubject').value=q.subject;
+  qs('#editQuizDuration').value=q.duration;
+  qs('#editQuizDue').value=q.due||'';
+  qs('#editQuizQuestions').value=JSON.stringify(q.questions,null,2);
+  qs('#editModal').classList.add('show');
+}
+
+function updateQuiz(){
+  try{
+    const q=state.quizzes.find(x=>x.id===editingQuizId);
+    q.title=qs('#editQuizTitle').value;
+    q.subject=qs('#editQuizSubject').value;
+    q.duration=+qs('#editQuizDuration').value;
+    q.due=qs('#editQuizDue').value;
+    q.questions=JSON.parse(qs('#editQuizQuestions').value);
+    q.count=q.questions.length;
+    save();
+    closeModal('editModal');
+    renderManageQuiz();
+    renderStudentQuizzes();
+    toast('Quiz updated');
+  }catch(e){
+    toast('Invalid quiz JSON');
+  }
+}
+
+function deleteQuiz(id){
+  if(!confirm('Delete this quiz?'))return;
+  state.quizzes=state.quizzes.filter(q=>q.id!==id);
+  save();
+  renderManageQuiz();
+  renderStudentQuizzes();
 }
 
 /* =========================
@@ -1353,21 +1729,27 @@ function renderUsers(){
       <tr><th>Name</th><th>Email</th><th>Role</th><th>Action</th></tr>
       ${state.users.map(u=>`
         <tr>
-          <td>${u.name}</td><td>${u.email}</td><td>${u.role}</td>
-          <td><button class='btn bad sm' onclick='deleteUser("${u.email}")'>Delete</button></td>
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td>${u.role}</td>
+          <td><button class='btn bad' onclick='deleteUser("${u.email}")'>Delete</button></td>
         </tr>
       `).join('')}
     </table>
   `;
 }
 function deleteUser(email){
-  if(email===state.current.email) return toast('Cannot delete current user');
-  state.users=state.users.filter(u=>u.email!==email); save(); renderUsers();
+  if(email===state.current.email)return toast('Cannot delete current user');
+  state.users=state.users.filter(u=>u.email!==email);
+  save();
+  renderUsers();
 }
+
 function renderAdminQuizzes(){
   const totalStudents=state.users.filter(u=>u.role==='student').length;
   const totalStaff=state.users.filter(u=>u.role==='staff').length;
   const totalAttempts=state.results.length;
+
   qs('#adminQuizList').innerHTML=`
     <div class='stats' style='margin-bottom:18px'>
       <div class='glass stat'><h3>Students</h3><h1>${totalStudents}</h1></div>
@@ -1376,231 +1758,330 @@ function renderAdminQuizzes(){
       <div class='glass stat'><h3>Quizzes</h3><h1>${state.quizzes.length}</h1></div>
     </div>
   ` + (state.quizzes.map(q=>`
-    <div class='glass card' style='transform:perspective(1000px) rotateX(4deg);margin-bottom:14px'>
+    <div class='glass card' style='transform:perspective(1000px) rotateX(4deg); margin-bottom:14px'>
       <h3>${q.title}</h3>
       <p class='muted'>${q.subject} • by ${q.createdBy}</p>
-      <div class="row">
-        <span class="tag ${difficultyClass(q.difficulty)}">${q.difficulty||'Medium'}</span>
-        <span class="pill">${q.count} Questions</span>
-      </div>
+      <div class='pill'>Premium Admin View</div>
     </div>
   `).join('')||'<p class="muted">No quizzes yet.</p>');
 }
+
 function addAnnouncement(){
   const t=qs('#announcementText').value.trim();
-  if(!t) return;
+  if(!t)return;
   state.announcements.unshift(t);
   qs('#announcementText').value='';
-  save(); renderAnnouncements(); toast('Announcement posted');
+  save();
+  renderAnnouncements();
+  toast('Announcement posted');
 }
 function renderAnnouncements(){
-  qs('#announcementList').innerHTML=state.announcements.map(a=>`<div class='glass card'><p>${a}</p></div>`).join('');
+  qs('#announcementList').innerHTML=state.announcements.map(a=>`
+    <div class='glass card'><p>${a}</p></div>
+  `).join('');
 }
 
 /* =========================
-   PROFILE / ATTENDANCE / BADGES
+   PROFILE
 ========================= */
 function renderProfile(){
   const u=state.current;
   qs('#profileName').textContent=u.name;
   qs('#profileEmail').textContent=u.email;
   qs('#profileRole').textContent=u.role;
-  renderBadges(); renderAttendance();
+  renderBadges();
+  renderAttendance();
 }
 function uploadAvatar(e){
   const f=e.target.files[0];
-  if(!f) return;
-  if(!f.type.startsWith('image/')) return toast('Upload image only');
+  if(!f)return;
+  if(!f.type.startsWith('image/'))return toast('Upload image only');
+
   const r=new FileReader();
   r.onload=()=>{
-    state.avatars[state.current.email]=r.result; save(); renderDashboard(); toast('Avatar uploaded');
+    state.avatars[state.current.email]=r.result;
+    save();
+    renderDashboard();
+    toast('Avatar uploaded');
   };
   r.readAsDataURL(f);
 }
-function markAttendance(){
-  const e=state.current.email;
-  if(!state.attendance[e]) state.attendance[e]=[];
-  const today=new Date().toDateString();
-  if(!state.attendance[e].includes(today)) state.attendance[e].push(today);
-}
-function renderAttendance(){
-  const list=state.attendance[state.current.email]||[];
-  qs('#attendanceList').innerHTML=list.map(d=>`<div class='pill' style='margin:4px'>${d}</div>`).join('')||'<p class="muted">No attendance yet.</p>';
-}
-function awardBadges(r){
-  const e=r.email;
-  if(!state.badges[e]) state.badges[e]=[];
-  if(r.score===r.total&&!state.badges[e].includes('Perfect Score')) state.badges[e].push('Perfect Score');
-  if(state.results.filter(x=>x.email===e).length>=3&&!state.badges[e].includes('Quiz Explorer')) state.badges[e].push('Quiz Explorer');
-  if(r.score/r.total>=0.8&&!state.badges[e].includes('High Performer')) state.badges[e].push('High Performer');
-}
-function renderBadges(){
-  const badges=state.badges[state.current.email]||[];
-  qs('#badgeList').innerHTML=badges.map(b=>`<div class='pill' style='margin:4px'>🏅 ${b}</div>`).join('')||'<p class="muted">No badges yet.</p>';
-}
 
 /* =========================
-   CALENDAR / ANALYTICS
+   CALENDAR
 ========================= */
 function renderCalendar(){
   const grid=qs('#calendarGrid');
   const now=new Date();
   const days=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
   grid.innerHTML='';
+
   ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>grid.innerHTML+=`<div class='day'><b>${d}</b></div>`);
+
   for(let i=1;i<=days;i++){
     const due=state.quizzes.filter(q=>q.due&&new Date(q.due).getDate()===i&&new Date(q.due).getMonth()===now.getMonth());
-    grid.innerHTML+=`<div class='day ${i===now.getDate()?'today':''}'>${i}<div class='small muted'>${due.length?due.length+' quiz':''}</div></div>`;
+    grid.innerHTML+=`
+      <div class='day ${i===now.getDate()?'today':''}'>
+        ${i}
+        <div class='small muted'>${due.length?due.length+' quiz':''}</div>
+      </div>
+    `;
   }
 }
+
+/* =========================
+   CHARTS
+========================= */
 function drawCharts(){
-  const textColor=getComputedStyle(document.body).getPropertyValue('--text').trim() || '#fff';
-  const gridColor='rgba(255,255,255,.12)';
+  const c=qs('#analyticsChart');
+  const b=qs('#analyticsBarChart');
 
-  const bySub={}; state.results.forEach(r=>bySub[r.subject]=(bySub[r.subject]||0)+r.score);
-  const attempts={}; state.results.forEach(r=>attempts[r.subject]=(attempts[r.subject]||0)+1);
-  const diffMap={Easy:0,Medium:0,Hard:0}; state.quizzes.forEach(q=>diffMap[q.difficulty||'Medium']++);
+  const textColor=getComputedStyle(document.body).getPropertyValue('--text').trim();
+  const bySub={};
+  const attemptCount={};
 
-  if(chart1) chart1.destroy(); if(chart2) chart2.destroy(); if(chart3) chart3.destroy();
+  state.results.forEach(r=>{
+    bySub[r.subject]=(bySub[r.subject]||0)+r.score;
+    attemptCount[r.subject]=(attemptCount[r.subject]||0)+1;
+  });
 
-  chart1=new Chart(qs('#analyticsChart1'),{
+  const labels=Object.keys(bySub).length?Object.keys(bySub):sampleSubjects;
+  const scoreData=Object.keys(bySub).length?Object.values(bySub):[0,0,0,0,0];
+  const attemptData=labels.map(l=>attemptCount[l]||0);
+
+  if(chartRef)chartRef.destroy();
+  if(barChartRef)barChartRef.destroy();
+
+  chartRef=new Chart(c,{
     type:'radar',
-    data:{labels:Object.keys(bySub).length?Object.keys(bySub):sampleSubjects,datasets:[{label:'Performance Radar',data:Object.keys(bySub).length?Object.values(bySub):[0,0,0,0,0],fill:true,borderWidth:3,pointRadius:5}]},
+    data:{
+      labels,
+      datasets:[{
+        label:'Performance Radar',
+        data:scoreData,
+        fill:true,
+        tension:.45,
+        borderWidth:3,
+        pointRadius:5,
+        borderColor:'rgba(0,212,255,1)',
+        backgroundColor:'rgba(0,212,255,.15)',
+        pointBackgroundColor:'rgba(109,93,252,1)'
+      }]
+    },
     options:{
       animation:{duration:1800,easing:'easeOutElastic'},
+      responsive:true,
       plugins:{legend:{labels:{color:textColor}}},
-      scales:{r:{grid:{color:gridColor},angleLines:{color:gridColor},pointLabels:{color:textColor},ticks:{display:false}}}
+      scales:{
+        r:{
+          grid:{color:'rgba(255,255,255,.18)'},
+          angleLines:{color:'rgba(255,255,255,.18)'},
+          pointLabels:{color:textColor},
+          ticks:{display:false}
+        }
+      }
     }
   });
 
-  chart2=new Chart(qs('#analyticsChart2'),{
-    type:'doughnut',
-    data:{labels:Object.keys(attempts).length?Object.keys(attempts):sampleSubjects,datasets:[{data:Object.keys(attempts).length?Object.values(attempts):[0,0,0,0,0],borderWidth:2}]},
+  barChartRef=new Chart(b,{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[{
+        label:'Attempts',
+        data:attemptData,
+        borderRadius:14,
+        borderWidth:0,
+        backgroundColor:[
+          'rgba(0,212,255,.75)',
+          'rgba(109,93,252,.75)',
+          'rgba(0,255,163,.75)',
+          'rgba(59,130,246,.75)',
+          'rgba(14,165,233,.75)'
+        ]
+      }]
+    },
     options:{
       animation:{duration:1600,easing:'easeOutBounce'},
-      plugins:{legend:{labels:{color:textColor}}}
-    }
-  });
-
-  chart3=new Chart(qs('#analyticsChart3'),{
-    type:'bar',
-    data:{labels:['Easy','Medium','Hard'],datasets:[{label:'Quiz Difficulty Count',data:[diffMap.Easy,diffMap.Medium,diffMap.Hard],borderWidth:2,borderRadius:12}]},
-    options:{
-      animation:{duration:1700,easing:'easeOutBack'},
+      responsive:true,
       plugins:{legend:{labels:{color:textColor}}},
-      scales:{x:{ticks:{color:textColor},grid:{color:gridColor}},y:{ticks:{color:textColor},grid:{color:gridColor}}}
+      scales:{
+        x:{ticks:{color:textColor}, grid:{display:false}},
+        y:{ticks:{color:textColor}, grid:{color:'rgba(255,255,255,.08)'}}
+      }
     }
   });
 }
 
 /* =========================
-   EXPORT / CERTIFICATE
+   EXPORTS
 ========================= */
 function exportPDF(id){
   const r=state.results.find(x=>x.id===id);
-  if(!r) return toast('No result found');
+  if(!r)return toast('No result found');
+
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF();
-  doc.setFontSize(22); doc.text('Quiz Result Report',20,20);
+
+  doc.setFontSize(22);
+  doc.text('Quiz Result Report',20,20);
+
   doc.setFontSize(12);
   doc.text(`Student: ${r.student}`,20,40);
   doc.text(`Email: ${r.email}`,20,50);
   doc.text(`Quiz: ${r.title}`,20,60);
   doc.text(`Subject: ${r.subject}`,20,70);
-  doc.text(`Difficulty: ${r.difficulty||'Medium'}`,20,80);
-  doc.text(`Score: ${r.score}/${r.total}`,20,90);
-  doc.text(`Date: ${r.date}`,20,100);
+  doc.text(`Score: ${r.score}/${r.total}`,20,80);
+  doc.text(`Date: ${r.date}`,20,90);
+
   doc.save(`${r.title.replace(/\s+/g,'_')}_Result.pdf`);
 }
+
 function downloadCertificate(){downloadCertificateById(lastResultId)}
 function downloadCertificateById(id){
-  const r=state.results.find(x=>x.id===id); if(!r) return;
+  const r=state.results.find(x=>x.id===id);
+  if(!r)return;
+
   const w=window.open('','_blank');
   w.document.write(`
-    <html><head><title>Certificate</title>
-    <style>
-      body{font-family:Arial;text-align:center;padding:50px;background:#f4f8ff}
-      .box{border:8px solid #4f46e5;padding:40px;border-radius:24px;background:white;max-width:900px;margin:auto}
-      h1{font-size:52px;color:#1e3a8a}
-    </style></head>
-    <body><div class='box'>
-      <h1>Certificate of Achievement</h1>
-      <p>This certifies that</p>
-      <h2>${r.student}</h2>
-      <p>has successfully completed</p>
-      <h2>${r.title}</h2>
-      <p>with score <b>${r.score}/${r.total}</b></p>
-      <p>${r.date}</p>
-    </div></body></html>
+    <html>
+    <head>
+      <title>Certificate</title>
+      <style>
+        body{font-family:Arial;text-align:center;padding:50px;background:#f4f8ff}
+        .box{
+          border:8px solid #2563eb;
+          padding:40px;border-radius:24px;background:white;
+          max-width:900px;margin:auto;
+          box-shadow:0 20px 60px rgba(0,0,0,.08)
+        }
+        h1{font-size:52px;color:#1e3a8a}
+      </style>
+    </head>
+    <body>
+      <div class='box'>
+        <h1>Certificate of Achievement</h1>
+        <p>This certifies that</p>
+        <h2>${r.student}</h2>
+        <p>has successfully completed</p>
+        <h2>${r.title}</h2>
+        <p>with score <b>${r.score}/${r.total}</b></p>
+        <p>${r.date}</p>
+      </div>
+    </body>
+    </html>
   `);
-  w.document.close(); w.focus();
+  w.document.close();
+  w.focus();
 }
 
 /* =========================
-   OTHER FEATURES
+   EXTRA FEATURES
 ========================= */
 function randomQuiz(){
-  if(!state.quizzes.length) return toast('No quizzes available');
+  if(!state.quizzes.length)return toast('No quizzes available');
   const q=state.quizzes[Math.floor(Math.random()*state.quizzes.length)];
-  toast('Random quiz selected: '+q.title); startQuiz(q.id);
+  toast('Random quiz selected: '+q.title);
+  startQuiz(q.id);
 }
+
 function generateAISuggestion(){
   const userResults=state.results.filter(r=>state.current&&r.email===state.current.email);
   const weak=[...userResults].sort((a,b)=>(a.score/a.total)-(b.score/b.total))[0];
   qs('#aiSuggestion').textContent=weak
-    ? `Focus more on ${weak.subject}. Re-attempt similar quizzes and improve your accuracy in ${weak.title}.`
-    : 'Start attempting quizzes to unlock personalized suggestions.';
+    ?`Focus more on ${weak.subject}. Re-attempt similar quizzes and improve your accuracy in ${weak.title}.`
+    :'Start attempting quizzes to unlock personalized suggestions.';
 }
+
+function markAttendance(){
+  const e=state.current.email;
+  if(!state.attendance[e])state.attendance[e]=[];
+  const today=new Date().toDateString();
+  if(!state.attendance[e].includes(today))state.attendance[e].push(today);
+}
+
+function renderAttendance(){
+  const list=state.attendance[state.current.email]||[];
+  qs('#attendanceList').innerHTML=list.map(d=>`
+    <div class='pill' style='margin:4px'>${d}</div>
+  `).join('')||'<p class="muted">No attendance yet.</p>';
+}
+
+function awardBadges(r){
+  const e=r.email;
+  if(!state.badges[e])state.badges[e]=[];
+
+  if(r.score===r.total&&!state.badges[e].includes('Perfect Score'))state.badges[e].push('Perfect Score');
+  if(state.results.filter(x=>x.email===e).length>=3&&!state.badges[e].includes('Quiz Explorer'))state.badges[e].push('Quiz Explorer');
+  if(r.score/r.total>=0.8&&!state.badges[e].includes('High Performer'))state.badges[e].push('High Performer');
+}
+function renderBadges(){
+  const badges=state.badges[state.current.email]||[];
+  qs('#badgeList').innerHTML=badges.map(b=>`
+    <div class='pill' style='margin:4px'>🏅 ${b}</div>
+  `).join('')||'<p class="muted">No badges yet.</p>';
+}
+
 function burstConfetti(){
-  const wrap=qs('#confetti'); wrap.innerHTML='';
+  const wrap=qs('#confetti');
+  wrap.innerHTML='';
   for(let i=0;i<120;i++){
     const p=document.createElement('div');
     p.className='piece';
     p.style.left=Math.random()*100+'vw';
-    p.style.background=Math.random()>.5?'#00c2ff':'#6b5cff';
+    p.style.background=Math.random()>.5?'#00d4ff':'#6d5dfc';
     p.style.animationDuration=(2+Math.random()*3)+'s';
     p.style.transform=`rotate(${Math.random()*360}deg)`;
     wrap.appendChild(p);
   }
   setTimeout(()=>wrap.innerHTML='',3500);
 }
-function startTutorial(){
-  alert('Tutorial:\n1. Login/Register\n2. Student can attempt quizzes\n3. Staff can create/manage quizzes\n4. Admin can manage users, quizzes, and announcements\n5. Use profile, analytics, calendar, and settings panels.');
+
+function closeModal(id){
+  qs('#'+id).classList.remove('show');
+  clearInterval(timerInt);
 }
+
+function startTutorial(){
+  alert(
+`Tutorial:
+1. Login/Register
+2. Student can attempt quizzes
+3. Staff can create/manage quizzes
+4. Admin can manage users, quizzes, and announcements
+5. Use profile, analytics, calendar, and settings panels.`
+  );
+}
+
 function makeParticles(){
-  const wrap=qs('#particles'); wrap.innerHTML='';
-  for(let i=0;i<36;i++){
+  const wrap=qs('#particles');
+  wrap.innerHTML='';
+  for(let i=0;i<40;i++){
     const p=document.createElement('div');
     p.className='particle';
     const s=6+Math.random()*18;
-    p.style.width=s+'px'; p.style.height=s+'px';
+    p.style.width=s+'px';
+    p.style.height=s+'px';
     p.style.left=Math.random()*100+'vw';
     p.style.animationDuration=(8+Math.random()*10)+'s';
     p.style.animationDelay=(Math.random()*-20)+'s';
-    p.style.background=Math.random()>.5?'rgba(0,194,255,.55)':'rgba(107,92,255,.55)';
+    p.style.background=Math.random()>.5?'rgba(0,212,255,.55)':'rgba(109,93,252,.55)';
     wrap.appendChild(p);
   }
 }
-function makeShapes(){
-  const wrap=qs('#bgShapes'); wrap.innerHTML='';
-  for(let i=0;i<12;i++){
-    const s=document.createElement('div');
-    s.className='shape';
-    const size=80+Math.random()*180;
-    s.style.width=size+'px'; s.style.height=size+'px';
-    s.style.left=Math.random()*100+'vw'; s.style.top=Math.random()*100+'vh';
-    s.style.background=Math.random()>.5?'rgba(0,194,255,.06)':'rgba(107,92,255,.06)';
-    s.style.animationDuration=(12+Math.random()*10)+'s';
-    wrap.appendChild(s);
-  }
-}
+
 function typingHero(){
-  const text='Master Quizzes with Intelligence.';
-  let i=0; const el=qs('#typing');
-  const t=setInterval(()=>{el.textContent=text.slice(0,i++); if(i>text.length) clearInterval(t)},55);
+  const text='Master Quizzes with Intelligence & Style.';
+  let i=0;
+  const el=qs('#typing');
+  const t=setInterval(()=>{
+    el.textContent=text.slice(0,i++);
+    if(i>text.length)clearInterval(t);
+  },45);
 }
+
 function seedQuizzes(){
-  if(state.quizzes.length) return;
+  if(state.quizzes.length)return;
   sampleSubjects.forEach((s,idx)=>{
     for(let i=1;i<=2;i++){
       state.quizzes.push({
@@ -1610,32 +2091,42 @@ function seedQuizzes(){
         count:5,
         duration:5,
         due:'',
-        difficulty:['Easy','Medium','Hard'][i%3],
         questions:sampleQuestions[s].slice((i-1)*5,i*5),
-        createdBy:'staff@quiz.com',
-        thumb:''
+        createdBy:'staff@quiz.com'
       });
     }
   });
   save();
 }
+
 function resetDemo(){
   if(confirm('Reset all saved demo data?')){
-    localStorage.removeItem(dbKey); location.reload();
+    localStorage.removeItem(dbKey);
+    location.reload();
   }
-}
-function escapeHtml(str=''){
-  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
 /* =========================
    INIT
 ========================= */
 window.addEventListener('DOMContentLoaded',()=>{
-  if(state.theme==='light') document.body.classList.add('light');
-  makeParticles(); makeShapes(); seedQuizzes(); fillSubjects(); typingHero();
-  qs('#avatarUpload').addEventListener('change',uploadAvatar);
+  if(state.theme==='light')document.body.classList.add('light');
+
+  makeParticles();
+  seedQuizzes();
+  fillSubjects();
+  typingHero();
+
+  const avatar=qs('#avatarUpload');
+  if(avatar) avatar.addEventListener('change',uploadAvatar);
+
+  const dz=qs('#dropZone');
+  if(dz){
+    dz.addEventListener('dragover',allowDrop);
+    dz.addEventListener('drop',dropQuestion);
+  }
 });
 </script>
+
 </body>
 </html>
